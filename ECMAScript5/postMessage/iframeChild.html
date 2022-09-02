@@ -16,8 +16,15 @@
         <div class="container">我是嵌入的子窗口页面iframe</div>
         <script>
             window.addEventListener('message', function (event) {
-                console.log('页面iframe弹出来的信息：', event.origin, event.data);
-                var data = event.data;
+                console.log('接收方的事件 => ', event);
+                console.log('页面iframe弹出来的信息：', event.origin, event.data, event.source);
+                const data = JSON.parse(event.data);
+                // 判断来源方是否为合法的域名
+                if (event.origin === 'http://localhost:5500') {
+                    console.log(data);
+                    event.source && event.source.postMessage('向来源方发送消息', 'https://parent.com');
+                }
+
                 // $.ajax({
                 //     // 注意这里的url只是一个示例.实际练习的时候你需要自己想办法提供一个后台接口
                 //     type: 'POST',
