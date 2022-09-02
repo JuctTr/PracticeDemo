@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>13.4.8设备事件</title>
+  <script src="../EventUtil.js"></script>
+</head>
+<body>
+  <div id="myDiv" style="width: 300px;height: 300px;background: red;"></div>
+  <script>
+    // orientationchange事件
+    EventUtil.addHandler(window, "load", function(event){
+      var div = document.getElementById("myDiv");
+      div.innerHTML = "当前的设备方向是" + window.orientation;
+    });
+    EventUtil.addHandler(window, "orientationchange", function(event){
+      var div = document.getElementById("myDiv");
+      div.innerHTML = "当前的设备方向是" + window.orientation;
+    })
+
+    // MozOrientation事件
+
+    // deviceorientation 事件
+
+    // devicemotion 事件
+    </script>
+</body>
+</html>

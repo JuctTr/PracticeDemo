@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标与滚轮事件</title>
+    <style>
+        #page{
+            width: 200px;
+            height: 200px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: gray;
+            text-align: center;
+        }
+        #text{
+            color: white;
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            padding: 0;
+            background: blue;
+            cursor: pointer;
+        }
+        #container{
+            width: 200px;
+            height: 200px;
+            background: green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #childContainer{
+            width: 100px;
+            height: 100px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="page">
+        <div id="box">
+            我是灰色#box
+            <p id="text">我是文本框</p>
+        </div>
+        #page
+    </div>
+    <p id="message"></p>
+    <div id="container">
+        <div id="childContainer">
+
+        </div>
+    </div>
+    <script>
+        var text = document.getElementById("text");
+        var message = document.getElementById("message");
+        text.onclick = function(){
+            message.innerHTML = "我是click事件，我被点击了";
+            message.removeAttribute("style");
+        }
+        text.ondblclick = function(){
+            message.innerHTML = "我（text）被双击了";
+            message.setAttribute("style","color: red");
+            
+        }
+        var box = document.getElementById("box");
+        box.onclick = function(){
+            console.log("%c 我随着我的子元素text被点击而触发了我自己的点击事件,这个也就是冒泡","background: black;color: white;font-size: 2em;");
+        }
+        var page = document.getElementById("page");
+        page.onmousedown = function(){
+            console.log("我是mousedown事件,我绑在page的，我不能通过键盘来触发这个事件");
+        }
+//onmouseenter和onmouseleave这两个事件不冒泡
+        box.onmouseenter = function(){
+            console.log("%c 我是mouseenter事件，我在灰色(box)区域","background: black;color: white;font-size: 2em;");
+        }
+        box.onmouseleave = function(){
+            console.log("%c 我是mouseleave事件，我离开了灰色区域","background: red;color: black;font-size: 2em;");
+        }
+        page.onmouseenter = function(){
+            console.log("%c 我是mouseenter事件，我处于红色区域","background: black;color: white;font-size: 2em;");
+        }
+        page.onmouseleave = function(){
+            console.log("%c 我是mouseleave事件，我离开了红色(page)区域","background: red;color: black;font-size: 2em;");
+        }
+
+        box.onmousemove = function(){
+            console.log("%c 我是mousemove事件，我在元素内部移动时会重复地触发，我同样也不能通过键盘来触发，我离开了灰色(box)区域","background: green;color: black;font-size: 2em;");
+        }
+
+        document.getElementById("container").onmouseout = function(){
+            console.log("%c 我是mouseout事件，反正从我身上移到其他地方我就要触发；我同样也不能通过键盘来触发","font-size: 2em;");
+        }
+        document.getElementById("container").onmouseup = function(){
+            console.log("%c 我是mouseup事件，释放鼠标按钮我就要触发；我同样也不能通过键盘来触发","font-size: 2em;");
+        }
+    </script>
+</body>
+</html>

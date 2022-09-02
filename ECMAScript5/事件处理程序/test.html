@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./EventUtil.js"></script>
+    <style>
+        body{
+            position: relative;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script>
+      var myDiv = document.getElementById("box");
+      EventUtil.addHandler(myDiv, "mousedown", function(event){
+        event = EventUtil.getEvent(event);
+        var target = EventUtil.getTarget(event);
+        var boxWidth = myDiv.clientWidth;
+        var boxHeight = myDiv.clientHeight;
+        var boxOrginTop = myDiv.offsetTop;
+        var boxOrignLeft = myDiv.offsetLeft;
+        EventUtil.addHandler(document, "mousemove", function(event){
+            myDiv.style.top = event.clientY - boxWidth/2 + 'px' ;
+            myDiv.style.left = event.clientX - boxHeight/2  + 'px';
+        })
+        EventUtil.addHandler(document, "mouseup", function(event){
+            console.log("我释放鼠标了")
+            EventUtil.removeHandler(document, "mousemove", function(event){
+                console.log("我已经移除了mouse move事件")
+                myDiv.style.left = boxOrignLeft;
+                myDiv.style.top = boxOrginTop;
+            })
+        })
+      })
+    </script>
+</body>
+</html>

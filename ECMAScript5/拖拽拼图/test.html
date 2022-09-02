@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            body {
+                position: relative;
+            }
+            #box {
+                width: 200px;
+                height: 300px;
+                background: red;
+                position: absolute;
+                top: 20px;
+                left: 200px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">我是客户区的坐标位置</div>
+
+        <script>
+            var box = document.getElementById('box');
+            console.log('我是盒子的宽高' + box.clientWidth, box.clientHeight);
+            console.log('我是盒子在客户区的位置' + box.offsetTop, box.offsetLeft);
+            box.onmousedown = function (event) {
+                console.log("鼠标点击这个位置浏览器客户区'最左端'的距离" + event.clientX + ' px 无论有没有外边距');
+                console.log("鼠标点击这个位置浏览器客户区'最顶端'的距离" + event.clientY + ' px 无论有没有外边距');
+            };
+        </script>
+    </body>
+</html>

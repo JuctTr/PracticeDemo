@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>13.4.9触摸与手势事件.html</title>
+  <script src="../EventUtil.js"></script>
+  <style>
+    div{
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="output" style="width: 200px;height: 200px;background: red;"></div>
+  <div id="output1" style="width: 200px;height: 200px;background: red;"></div>
+  <div id="output2" style="width: 200px;height: 200px;background: red;"></div>
+  <div id="output3" style="width: 200px;height: 200px;background: red;"></div>
+  <script>
+    function handleTouchEvent(event){
+      var output = document.getElementById("output");
+      switch(event.type){
+        case "touchstart":
+          output.innerHTML = "Touch started (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";
+          break;
+        case "touchend": 
+          output.innerHTML += "<br>Touch ended (" + event.changedTouches[0].clientX + "," + event.changedTouches[0].clientY + ")";
+          break;
+        case "touchmove":
+          event.preventDefault(); // 阻止滚动
+          output.innerHTML += "<br>Touch moved (" + event.changedTouches[0].clientX + "," + event.changedTouches[0].clientY + ")";
+          break;
+        
+      }
+    }
+    EventUtil.addHandler(document, "touchstart", handleTouchEvent);
+    EventUtil.addHandler(document, "touchend", handleTouchEvent);
+    EventUtil.addHandler(document, "touchmove", handleTouchEvent);
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>13.4.7HTML5事件</title>
+  <style>
+    #myMenu{
+      width: 300px;
+
+    }
+  </style>
+  <script src="../EventUtil.js"></script>
+</head>
+<body>
+  <div id="myDiv">Right click or Crrl+click me to get a custom context menu. Click anywhere else to get the default context menu.</div>
+  <ul id="myMenu" style="position: absolute;visibility: hidden;background-color:silver;" >
+    <li><a href="https://www.baidu.com">我是百度</a></li>
+    <li><a href="www.taobao.com">我是淘宝</a></li>
+    <li><a href="www.jd.com">我是京东</a></li>
+  </ul>
+  <script>
+    // contextmenu 上下文菜单事件
+    EventUtil.addHandler(window, "load", function(event){
+      var div = document.getElementById("myDiv");
+      EventUtil.addHandler(div, "contextmenu", function(event){
+        event = EventUtil.getEvent(event);
+        EventUtil.preventDafault(event); // 取消默认行为，以保证不显示浏览器的默认的上下文菜单
+        
+        var menu = document.getElementById("myMenu");
+        menu.style.left = event.clientX + "px";
+        menu.style.right = event.clientY + "px";
+        menu.style.visibility = "visible";
+      });
+      EventUtil.addHandler(document, "click", function(event){
+        document.getElementById("myMenu").style.visibility = "hidden";
+      })
+    })
+    // 页面被用户关掉之前会触发beforeunload事件，把控制权交给用户
+    EventUtil.addHandler(window, "beforeunload", function(event){
+      event = EventUtil.getEvent(event);
+      
+      var message = "您确定要关闭当前页面吗？";
+      event.returnValue = message;
+      return message;
+    });
+    // 在页面形成完整的DOM树之后，就会触发DOMContentLoaded事件
+    EventUtil.addHandler(document, "DOMContentLoaded", function(event){
+      alert("页面已经形成完整的DOM树了，也就是解析完成了，不会去理会图像，JavaScript脚本，css文件等其他资源是否下载完成");
+    });
+    // IE为DOM文档中的某些部分提供了readystatechange事件
+
+
+    // pageshow 和 pagehide事件
+
+
+
+  </script>
+</body>
+</html>
