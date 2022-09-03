@@ -1,3 +1,6 @@
+/**
+ * @description Node中的EventEmitter https://github.com/browserify/events
+ */
 class Emitter {
     constructor(context) {
         this.eventQueue = {};
