@@ -1,0 +1,46 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            html {
+                font-size: 20px;
+                font-size: 5.3333333vw !important;
+                /* 为什么这里要 设定为 5.3333333vw 呢，5.3333333vw 在视窗宽度为 375px 的时候，
+                    字体正好是 20px (20 / 375 = 0.053333333)。再乘于100vw
+                    而我的项目中的页面默认字体大小就是20px。
+                    好了，现在页面上所有以 rem 为单位的属性都会随着屏幕的宽度变化而自动响应等比变化。
+                */
+            }
+            @media only screen and (min-width: 540px) {
+                html {
+                    font-size: 28.8px !important;
+                }
+            }
+            body {
+                font-family: -apple-system, Helvetica, sans-serif !important;
+            }
+
+            /* 屏幕适配
+            // $width: [设计稿宽度]，默认 375，旧设计稿 320
+            // 使用： @include rem_query; 或 @include rem_query(320); */
+            /* @mixin rem_query($width: 375) {
+                $vw_base: $width;
+                $vw_fontsize: 20;
+                html {
+                    font-size: 20px;
+                    font-size: ($vw_fontsize / $vw_base) * 100vw;
+                    @media screen and (max-width: 320px) {
+                        font-size: ($vw_fontsize / $vw_base) * 320px;
+                    }
+                    @media screen and (min-width: 540px) {
+                        font-size: ($vw_fontsize / $vw_base) * 540px;
+                    }
+                }
+            } */
+        </style>
+    </head>
+    <body></body>
+</html>
