@@ -1,5 +1,7 @@
 /**
- * @description Node中的EventEmitter https://github.com/browserify/events
+ * @description Node中的EventEmitter
+ * https://github.com/browserify/events
+ * https://github.com/nodejs/node/blob/v16.x/lib/events.js
  */
 class Emitter {
     constructor(context) {
