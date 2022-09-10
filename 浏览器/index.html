@@ -1,0 +1,48 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style id="style">
+            .demo p span {
+                color: #09f;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="demo">
+            <ul>
+                <li>
+                    <a href="javascript:;">这是a</a>
+                </li>
+            </ul>
+            <p>
+                <span>这个才是span</span>
+            </p>
+        </div>
+
+        <script type="text/javascript">
+            for (let i = 0; i < 20; i++) {
+                const root = document.createElement('div');
+
+                let e = root;
+
+                if (i == 5) {
+                    e.className = 'a';
+                }
+
+                for (let j = 0; j < 2000; j++) {
+                    e.appendChild(document.createElement('div'));
+                    e = e.firstChild;
+                    if (i == 5 && j == 1950) e.className = 'b';
+                }
+                document.body.appendChild(root);
+            }
+            const date = new Date();
+            document.getElementById('style').innerHTML = '.a ' + new Array(1900).join('div ') + '{ color: red; }';
+            // document.getElementById('style').innerHTML = new Array(1900).join('div ') + '.b { color: blue }';
+            alert(new Date() - date);
+        </script>
+    </body>
+</html>
