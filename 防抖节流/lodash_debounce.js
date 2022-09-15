@@ -183,6 +183,9 @@ function debounce(func, wait, options) {
         /**
          * trailing 默认为true
          * 只有当`lastArgs` 有值才调用，这意味着 `func`至少被调用过一次了
+         * 【节流场景动作】：
+         * 1、如果只点一次，在 首次 的 invokeFunc 就把lastArgs设置为undefined
+         * 2、如果反复点击，debounced在反复点击的期间不断触发，所以lastArgs就一直有值，这里就会在wait最后一刻触发
          */
         if (trailing && lastArgs) {
             return invokeFunc(time);
