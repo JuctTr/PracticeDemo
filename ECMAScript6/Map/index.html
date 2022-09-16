@@ -1,0 +1,45 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Map数据结构</title>
+    </head>
+    <body>
+        <script>
+            // obj 570 ~ 650 ms
+            // const len = 1000000;
+            // const obj = {};
+            // console.time();
+            // for (let i = 0; i < len; i++) {
+            //     const key = 'k' + i;
+            //     obj[key] = 'value';
+            // }
+            // let vc = 0;
+            // for (let i = 0; i < len; i++) {
+            //     const key = 'k' + i;
+            //     if (obj[key]) {
+            //         vc++;
+            //     }
+            // }
+            // console.timeEnd();
+
+            // map 490ms ~ 550 ms
+            const len = 1000000;
+            const map = new Map();
+            console.time();
+            for (let i = 0; i < len; i++) {
+                const key = 'k' + i;
+                map.set(key, 'value');
+            }
+            let vc = 0;
+            for (let i = 0; i < len; i++) {
+                const key = 'k' + i;
+                if (map.has(key)) {
+                    vc++;
+                }
+            }
+            console.timeEnd();
+        </script>
+    </body>
+</html>
