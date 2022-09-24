@@ -1,0 +1,81 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>异常监控</title>
+        <script>
+            window.addEventListener('error', error => {
+                console.log('全局 error => ', error);
+            });
+            // window.addEventListener(
+            //     'error',
+            //     error => {
+            //         console.log('404 错误');
+            //         console.log(error);
+            //         // return true; // 中断事件传播
+            //     },
+            //     true
+            // );
+            // window.addEventListener('unhandledrejection', e => {
+            //     console.log('unhandledrejection => ', e);
+            // });
+        </script>
+    </head>
+    <body>
+        <script>
+            // https://juejin.cn/post/7004606483870515213
+
+            // function syncError() {
+            //     throw new Error('同步错误');
+            // }
+            // syncError();
+
+            // 第一种场景
+
+            // try {
+            //     (async () => {
+            //         throw new Error('异步错误，不能够被tryCatch捕获'); // uncaught
+            //     })();
+            // } catch (error) {
+            //     console.log('tryCatch 中的 错误 ～');
+            // }
+
+            // 我们怎么来捕获异步发生的错误？使用 事件 unhandledrejection 来捕获
+            // new Promise((resolve, reject) => {
+            //     resolve();
+            // }).then(() => {
+            //     throw new Error('异步错误');
+            // });
+
+            // ReferenceError
+            // console.log(x);
+            // let obj = x;
+
+            // TypeError
+            // let o = new 10();
+
+            // let a = 1,
+            //     b = 3;
+            // console.log(a ++ b)
+            // eval('a ++ b');
+
+            // let items1 = new Array(-20);
+            // let items2 = new Array(Number.MAX_VALUE);
+
+            try {
+                // new Promise((resolve, reject) => {
+                //     throw new Error('异步错误');
+                // });
+                // setTimeout(() => {
+                //     error;
+                // });
+                requestIdleCallback(() => {
+                    throw new Error('异步错误: requestIdleCallback');
+                });
+            } catch (error) {
+                console.log('我感知不到错误', error);
+            }
+        </script>
+    </body>
+</html>
