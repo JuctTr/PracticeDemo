@@ -21,6 +21,9 @@ function add(num1, num2, num3) {
 }
 var curriedAdd = curry(add);
 console.log(curriedAdd(1, 2, 3));
+// console.log(curriedAdd(1)(2)(3));
+// console.log(curriedAdd(1, 2)(3));
+// console.log(curriedAdd(1)(2, 3));
 
 // bind例子
 
