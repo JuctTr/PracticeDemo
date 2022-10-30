@@ -1,0 +1,144 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>requestAnimationFrame测试</title>
+        <style>
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                position: relative;
+            }
+            .box2 {
+                background-color: yellow;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                z-index: -1;
+            }
+            .box3 {
+                position: relative;
+                top: 20px;
+                left: 20px;
+                z-index: 2;
+                background-color: blue;
+            }
+            .box4 {
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                z-index: 3;
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="example1"></div>
+        <div class="box2">
+            <div class="box3"></div>
+        </div>
+        <div class="box4"></div>
+        <script>
+            console.log('============= 例子1 ============');
+            // setTimeout(() => {
+            //     requestAnimationFrame(() => {
+            //         console.log('第一次渲染');
+            //     });
+            //     console.log('first setTimeout');
+            //     document.body.style.background = 'red';
+            //     setTimeout(() => {
+            //         requestAnimationFrame(() => {
+            //             console.log('第二次渲染');
+            //         });
+            //         console.log('second setTimeout');
+            //         document.body.style.background = 'blue';
+            //     }, 0);
+            // }, 0);
+            console.log('============= 例子2 ============');
+
+            // setTimeout(() => {
+            //     console.log('sto');
+            //     requestAnimationFrame(() => console.log('rAF'));
+            // });
+            // setTimeout(() => {
+            //     console.log('sto');
+            //     requestAnimationFrame(() => console.log('rAF'));
+            // });
+
+            // queueMicrotask(() => console.log('mic'));
+            // queueMicrotask(() => console.log('mic'));
+
+            // 一道面试题
+            // console.log('============= 一道面试题 ============');
+            // console.log('script start');
+            // setTimeout(function firstTimeOut() {
+            //     console.log('A');
+            // }, 0);
+
+            // function func() {
+            //     setTimeout(function secondTimeOut() {
+            //         requestAnimationFrame(() => {
+            //             console.log('B');
+            //         });
+            //         console.log('C');
+            //     }, 0);
+            //     requestAnimationFrame(() => {
+            //         console.log('D');
+            //     });
+            //     return new Promise(resolve => {
+            //         console.log('E');
+            //         resolve();
+            //     });
+            // }
+            // func().then(function firstThen() {
+            //     console.log('first then');
+            // });
+            // console.log('script end');
+            console.log('============= 例子4 ============');
+            queueMicrotask(() => {
+                console.log('第一个微任务');
+                queueMicrotask(() => {
+                    console.log('第三个微任务');
+                    queueMicrotask(() => {
+                        console.log('第五个微任务');
+                    });
+                });
+                queueMicrotask(() => {
+                    console.log('第四个微任务');
+                });
+                setTimeout(() => {
+                    console.log('second setTimeout');
+                });
+            });
+            queueMicrotask(() => {
+                console.log('第二个微任务');
+            });
+            setTimeout(() => {
+                console.log('first setTimeout');
+            });
+            console.log('============= 例子5 ============');
+            // requestAnimationFrame(function raf() {
+            //     console.log('[raf]');
+            // });
+            // new Promise(resolve => {
+            //     resolve();
+            // }).then(() => {
+            //     console.log('micotask');
+            // });
+            // setTimeout(function firstTimeOut() {
+            //     document.body.style.backgroundColor = 'red';
+            //     console.log('[firstTimeOut]');
+            //     requestAnimationFrame(function raf() {
+            //         console.log('[raf2]');
+            //     });
+            //     setTimeout(function secondTimeout() {
+            //         document.body.style.backgroundColor = 'blue';
+            //         console.log('[secondTimeout]');
+            //     }, 100);
+            // }, 0);
+        </script>
+        <script src="./requestAnimationFrame.js"></script>
+    </body>
+</html>
