@@ -1,0 +1,58 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Flexbox布局</title>
+        <style>
+            .root {
+                border: 1px solid black;
+                height: 500px;
+                display: flex;
+            }
+            .root .box {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                border: 1px blue solid;
+            }
+            .shrink .box:nth-child(1) {
+                flex-shrink: 2;
+            }
+            .grow .box:nth-child(2) {
+                flex-grow: 1;
+            }
+            .basis .box:nth-child(2) {
+                flex-basis: 20px;
+            }
+            .self .box:nth-child(2) {
+                align-self: flex-end;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="root shrink">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="root grow">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="root basis">
+            <div class="box"></div>
+            <div class="box">dsfasdfasdjfkljsadlkfjsadjfklsfj</div>
+            <div class="box"></div>
+        </div>
+        <div class="root self">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </body>
+</html>
