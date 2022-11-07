@@ -1,0 +1,60 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>sessionStorage</title>
+    </head>
+    <body>
+        <h1>sessionStorage</h1>
+        <button id="open">点击使用window.open()跳转（同源链接）</button>
+        <div>
+            <a
+                href="http://127.0.0.1:5500/ECMAScript5/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8/sessionStorage.html"
+                target="_blank"
+                rel="opener"
+                >带 rel="opener" 的a标签（同源链接）</a
+            >
+        </div>
+        <div>
+            <a
+                href="http://127.0.0.1:5500/ECMAScript5/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8/sessionStorage.html"
+                target="_blank"
+                rel="noopener"
+                >带 rel="noopener" 的a标签（同源链接）</a
+            >
+        </div>
+        <div>
+            <a href="https://www.baidu.com" target="_blank" rel="opener">带 rel="noopener" 的百度（不同源）</a>
+        </div>
+        <button id="change">点击修改sessionStorage</button>
+        <button id="paint">打印修改后的sessionStorage</button>
+        <script>
+            console.log('获取会话存储', window.sessionStorage.getItem('page1'));
+            window.sessionStorage.setItem('page1', 'A');
+            window.sessionStorage.setItem('page2', 'B');
+            window.sessionStorage.setItem('page3', 'C');
+            window.sessionStorage.setItem('page4', 'D');
+            window.sessionStorage.setItem('page5', 'E');
+            window.sessionStorage.setItem('page6', 'F');
+
+            const button = document.querySelector('#open');
+            button.addEventListener('click', () => {
+                window.open(
+                    'http://127.0.0.1:5500/ECMAScript5/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8/sessionStorage.html'
+                );
+            });
+            const button2 = document.querySelector('#change');
+
+            button2.addEventListener('click', () => {
+                window.sessionStorage.setItem('page1', 'change');
+                console.log('修改会话存储');
+            });
+            const button3 = document.querySelector('#paint');
+
+            button3.addEventListener('click', () => {
+                console.log('打印会话存储', window.sessionStorage.getItem('page1'));
+            });
+        </script>
+    </body>
+</html>
