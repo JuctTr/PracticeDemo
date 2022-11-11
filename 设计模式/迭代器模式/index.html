@@ -1,0 +1,38 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <a href="#">链接1号</a>
+        <a href="#">链接2号</a>
+        <a href="#">链接3号</a>
+        <a href="#">链接4号</a>
+        <a href="#">链接5号</a>
+        <a href="#">链接6号</a>
+        <script>
+            const aNodes = document.getElementsByTagName('a');
+            console.log('aNodes are', aNodes);
+            // const arr = [...aNodes];
+            const arr = Array.prototype.slice.call(aNodes);
+            arr.forEach(node => {
+                console.log(node);
+            });
+            // 编写一个迭代器生成函数
+            function* iteratorGenerator() {
+                yield '1号选手';
+                yield '2号选手';
+                yield '3号选手';
+            }
+
+            const iterator = iteratorGenerator();
+
+            console.log(iterator.next());
+            console.log(iterator.next());
+            console.log(iterator.next());
+            console.log(iterator.next());
+        </script>
+    </body>
+</html>

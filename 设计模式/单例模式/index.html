@@ -1,0 +1,83 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #modal {
+                height: 200px;
+                width: 200px;
+                line-height: 200px;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid black;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="open">打开弹框</button>
+        <button id="close">关闭弹框</button>
+        <script>
+            // 核心逻辑，这里采用了闭包思路来实现单例模式
+            const Modal = (function () {
+                let modal = null;
+                return function () {
+                    if (!modal) {
+                        modal = document.createElement('div');
+                        modal.innerHTML = '我是一个全局唯一的Modal';
+                        modal.id = 'modal';
+                        modal.style.display = 'none';
+                        document.body.appendChild(modal);
+                    }
+                    return modal;
+                };
+            })();
+
+            // 点击打开按钮展示模态框
+            document.getElementById('open').addEventListener('click', function () {
+                // 未点击则不创建modal实例，避免不必要的内存占用;此处不用 new Modal 的形式调用也可以，和 Storage 同理
+                const modal = new Modal();
+                modal.style.display = 'block';
+            });
+
+            // 点击关闭按钮隐藏模态框
+            document.getElementById('close').addEventListener('click', function () {
+                const modal = new Modal();
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // 先实现一个基础的StorageBase类，把getItem和setItem方法放在它的原型链上
+            function StorageBase() {}
+            StorageBase.prototype.getItem = function (key) {
+                return localStorage.getItem(key);
+            };
+            StorageBase.prototype.setItem = function (key, value) {
+                return localStorage.setItem(key, value);
+            };
+
+            // 以闭包的形式创建一个引用自由变量的构造函数
+            const StorageDemo = (function () {
+                let instance = null;
+                return function () {
+                    // 判断自由变量是否为null
+                    if (!instance) {
+                        // 如果为null则new出唯一实例
+                        instance = new StorageBase();
+                    }
+                    return instance;
+                };
+            })();
+
+            // 这里其实不用 new Storage 的形式调用，直接 Storage() 也会有一样的效果
+            // const storage1 = new StorageDemo();
+            // const storage2 = new StorageDemo();
+            // console.log(storage1 === storage2);
+        </script>
+    </body>
+</html>
