@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="results"></div>
+        <script>
+            // https://github.com/HOUCe/shuffle-array
+            var countings = [
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+                { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0 },
+            ];
+            var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            for (var i = 0; i < 10000; i++) {
+                var r = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].sort(function () {
+                    return 0.5 - Math.random();
+                });
+                for (var j = 0; j <= 9; j++) {
+                    countings[j][r[j]]++;
+                }
+            }
+            console.log(countings);
+            // for (var i = 0; i <= 9; i++) {
+            //     for (var j = 0; j <= 9; j++) {
+            //         document.getElementById('results').rows[i + 1].cells[j + 1].firstChild.data =
+            //             countings[i][letters[j]];
+            //     }
+            // }
+        </script>
+    </body>
+</html>
