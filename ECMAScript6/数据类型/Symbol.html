@@ -1,0 +1,76 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Symbol</title>
+    </head>
+    <body>
+        <script>
+            // 基本用法
+            let sy1 = Symbol('foo');
+            let sy2 = Symbol('foo');
+            console.log(sy1, sy2);
+            console.log(sy1 === sy2); // false
+            console.log(typeof sy1, typeof sy2);
+            console.log(Object.prototype.toString.call(sy1));
+            console.log(sy1.toString(), sy2.toString());
+            // 防止属性名/方法名的冲突
+            const obj = {
+                [sy1]: 20,
+                [sy2]: 30,
+            };
+            console.log(obj);
+
+            let myProp = Symbol('jucttr');
+            const commonObj = {
+                [myProp]() {
+                    console.log('我自己的方法');
+                },
+            };
+            commonObj[myProp]();
+            console.log('=====================');
+            // 私有属性 / 私有方法
+            const staticProps = Symbol('speek');
+            class Func {
+                constructor() {
+                    this[staticProps] = function () {
+                        console.log('我是一个私有方法');
+                    };
+                }
+            }
+            console.dir(Func);
+            const fn = new Func();
+            console.log(fn);
+            // 引用值类型
+            console.log(
+                '引用值类型 => ',
+                Symbol({
+                    a: 1,
+                    b: 2,
+                })
+            );
+
+            console.log('================ 使用全局符号注册表 ================');
+            function setGlobalSymbol(str) {
+                return Symbol.for(str);
+            }
+            let fooGlobalSymbol = setGlobalSymbol('foo'); // 创建新符号
+            let otherFooGlobalSymbol = setGlobalSymbol('foo'); // 重用已有符号
+            console.log(fooGlobalSymbol, otherFooGlobalSymbol); // true
+            console.log(fooGlobalSymbol === otherFooGlobalSymbol); // true
+
+            Symbol.for('bar') === Symbol.for('bar'); // true
+            Symbol('bar') === Symbol('bar'); // false
+            console.log('================ 查询全局符号注册表 ================');
+            // 全局符号
+            const queryGlobalSymbol = Symbol.keyFor(fooGlobalSymbol);
+            console.log(queryGlobalSymbol);
+            // 普通符号
+            const ordinarySymbol = Symbol('ordinary');
+            console.log(Symbol.keyFor(ordinarySymbol));
+
+            console.log('================ 提供了 11 个内置的 Symbol 值，过于复杂，用到再看 ================');
+        </script>
+    </body>
+</html>
