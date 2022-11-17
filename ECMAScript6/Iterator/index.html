@@ -1,0 +1,71 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Iterator接口</title>
+        <!-- <script type="module" src="./对象部署iterator.js"></script>
+        <script type="module" src="./字符串iterator接口.js"></script>
+        <script type="module" src="./return()&throw().js"></script> -->
+        <script type="module" src="./数组的iterator接口.js"></script>
+    </head>
+    <body>
+        <script>
+            function makeIterator(array) {
+                var nextIndex = 0;
+                return {
+                    next: function () {
+                        return nextIndex < array.length
+                            ? { value: array[nextIndex++], done: false }
+                            : { value: undefined, done: true };
+                    },
+                };
+            }
+
+            var it = makeIterator(['a', 'b']);
+
+            it.next(); // { value: "a", done: false }
+            it.next(); // { value: "b", done: false }
+            it.next(); // { value: undefined, done: true }
+
+            // const obj = {};
+            // const foo = Symbol('foo');
+
+            // obj[foo] = 'bar';
+
+            // for (let i in obj) {
+            //     console.log(i); // 无输出
+            // }
+            // console.log(Object.getOwnPropertyNames(obj)); // []
+            // console.log(Object.getOwnPropertySymbols(obj)); // [Symbol(foo)]
+
+            // let size = Symbol('size');
+
+            // class Collection {
+            //     constructor() {
+            //         this[size] = 0;
+            //     }
+
+            //     add(item) {
+            //         this[this[size]] = item;
+            //         this[size]++;
+            //     }
+
+            //     static sizeOf(instance) {
+            //         return instance[size];
+            //     }
+            // }
+
+            // let x = new Collection();
+            // Collection.sizeOf(x); // 0
+
+            // x.add('foo');
+            // Collection.sizeOf(x); // 1
+            // console.log(x);
+
+            // console.log(Object.keys(x)); // ['0']
+            // console.log(Object.getOwnPropertyNames(x)); // ['0']
+            // console.log(Object.getOwnPropertySymbols(x)); // [Symbol(foo)]
+        </script>
+    </body>
+</html>
