@@ -1,0 +1,53 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>async&await</title>
+        <!-- <script type="module" src="./封装await.js"></script>
+        <script type="module" src="./休眠语法.js"></script> -->
+        <!-- <script type="module" src="./重试例子.js"></script> -->
+        <!-- <script type="module" src="./继发请求&并发请求.js"></script> -->
+    </head>
+    <body>
+        <script>
+            window.addEventListener('error', error => {
+                console.log('全局同步错误 => ');
+            });
+            window.addEventListener('unhandledrejection', e => {
+                console.log('unhandledrejection => ', e);
+            });
+            function spawn(genF) {
+                return new Promise(function (resolve, reject) {
+                    const gen = genF();
+                    function step(nextF) {
+                        let next;
+                        try {
+                            next = nextF();
+                        } catch (e) {
+                            return reject(e);
+                        }
+                        if (next.done) {
+                            return resolve(next.value);
+                        }
+                        Promise.resolve(next.value).then(
+                            function (v) {
+                                step(function () {
+                                    return gen.next(v);
+                                });
+                            },
+                            function (e) {
+                                step(function () {
+                                    return gen.throw(e);
+                                });
+                            }
+                        );
+                    }
+                    step(function () {
+                        return gen.next(undefined);
+                    });
+                });
+            }
+        </script>
+    </body>
+</html>

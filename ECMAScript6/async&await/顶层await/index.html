@@ -1,0 +1,95 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>顶层await</title>
+        <!-- <script type="module" src="./demo1/index.js"></script> -->
+        <!-- <script type="module" src="./demo2/index.js"></script> -->
+        <!-- <script type="module" src="./demo3/index.js"></script> -->
+        <script type="module" src="./demo4/index.js"></script>
+    </head>
+    <body>
+        <p style="color: red; font-weight: 900">
+            顶层await只能用在 ES6 模块，不能用在 CommonJS 模块。这是因为 CommonJS
+            模块的require()是同步加载，如果有顶层await，就没法处理加载了。
+        </p>
+        <h1>index.js</h1>
+        <pre>
+            <code>
+                import { output } from './awaiting.js';
+
+                function outputPlusValue(value) {
+                    return output + value;
+                }
+                
+                console.log(outputPlusValue(100));
+                setTimeout(() => console.log(outputPlusValue(100)), 1000);                
+            </code>
+        </pre>
+        <h1>demo1</h1>
+        <p>
+            模块awaiting.js的输出值output，取决于异步操作。我们把异步操作包装在一个 async
+            函数里面，然后调用这个函数，只有等里面的异步操作都执行，变量output才会有值，否则就返回undefined。
+        </p>
+        <pre>
+            <code>
+                let output; async function fetchUrl() { 
+                    return new Promise((resolve, reject) => { 
+                        setTimeout(() => resolve(20), 1000); }); 
+                    } 
+                async function main() { 
+                    const dynamic = await fetchUrl(); 
+                    // const data = await fetch(url); 
+                    // ...... 
+                    // output = someProcess(dynamic.default, data); 
+                    output = dynamic; 
+                } 
+                main(); 
+                export { output };
+            </code>
+        </pre>
+
+        <h1>demo2</h1>
+        <p>就是让模块默认输出一个 Promise 对象，从这个 Promise 对象判断异步操作有没有结束。</p>
+        <pre>
+            <code>
+                let output;
+                async function fetchUrl() {
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => resolve(20), 1000);
+                    });
+                }
+                
+                export default (async function main() {
+                    const dynamic = await fetchUrl();
+                    // const data = await fetch(url);
+                    // ......
+                    // output = someProcess(dynamic.default, data);
+                    output = dynamic;
+                })();
+                export { output };
+                
+            </code>
+        </pre>
+        <h1>demo3</h1>
+        <p>顶层的await命令</p>
+        <pre>
+            <code>
+                async function fetchUrl() {
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => resolve(20), 1000);
+                    });
+                }
+                
+                const dynamic = import('./dyanmic.js');
+                const result = (await dynamic).default;
+                console.log(result);
+                // 顶层await
+                export const output = await fetchUrl();                
+                
+            </code>
+        </pre>
+        <p style="color: red; font-weight: 900">加载多个包含顶层await命令的模块，加载命令是同步执行的。</p>
+    </body>
+</html>
