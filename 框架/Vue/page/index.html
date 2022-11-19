@@ -1,0 +1,109 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">{{ onlyOne }}</div>
+            <!-- <div v-for="item in arr">{{item}}</div>
+            <button v-on:click="pushItem">push一个数组item</button>
+            <button v-on:click="popItem">pop一个数组item</button>
+            <button v-on:click="sortArr">sort 数组item</button>
+            <div>第一个：{{ onlyOne }}</div>
+            <div>第二个：{{ onlyOne }}</div> -->
+            <div>{{iIsComputed}}</div>
+            <button v-on:click="changeOnlyOne">修改onlyOne</button>
+            <div>{{ deepData.a.b }}</div>
+            <button v-on:click="changeDeepData">修改deepData</button>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            // 完整版本
+            const vm = new Vue({
+                computed: {
+                    iIsComputed() {
+                        return 'iIsComputed' + this.onlyOne;
+                    },
+                },
+                data() {
+                    return {
+                        // obj: {
+                        //     b: '我是对象里面的常量',
+                        //     c: 3,
+                        // },
+                        // arr: [4, 5, 6],
+                        onlyOne: '只有一个数据',
+                        deepData: {
+                            a: {
+                                b: 1,
+                            },
+                        },
+                    };
+                },
+                methods: {
+                    pushItem() {
+                        this.arr.push(Math.floor(7 * Math.random()));
+                    },
+                    popItem() {
+                        console.log(this.arr.pop());
+                    },
+                    sortArr() {
+                        this.arr.sort((a, b) => a - b);
+                    },
+                    changeOnlyOne() {
+                        this.onlyOne = '修改我了';
+                    },
+                    changeDeepData() {
+                        this.deepData.b = {
+                            bb: 1,
+                            cc: 3,
+                        };
+                    },
+                },
+                // 运行时版本
+                // render(createElement) {
+                //     return createElement(
+                //         'div',
+                //         {
+                //             props: {
+                //                 a: '343r',
+                //             },
+                //         },
+                //         [createElement('p', '32r23r23'), createElement('h1', 'erwrew')]
+                //     );
+                // },
+            }).$mount('#app');
+            // with (this) {
+            //     return _c(
+            //         'div',
+            //         {
+            //             attrs: { id: 'app' },
+            //         },
+            //         [
+            //             _c(
+            //                 'div',
+            //                 {
+            //                     staticClass: 'container',
+            //                 },
+            //                 [_v(_s(pageData))]
+            //             ),
+            //             _v(' '),
+            //             _c(
+            //                 'button',
+            //                 {
+            //                     on: {
+            //                         click: changeData,
+            //                     },
+            //                 },
+            //                 [_v('修改数据')]
+            //             ),
+            //         ]
+            //     );
+            // }
+        </script>
+    </body>
+</html>

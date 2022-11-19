@@ -1,0 +1,52 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>测试nextTick</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">{{ pageData }}</div>
+            <button v-on:click="changeData">修改数据</button>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            // 完整版本
+            const vm = new Vue({
+                // computed: {},
+                data() {
+                    return {
+                        pageData: 1,
+                    };
+                },
+                methods: {
+                    changeData() {
+                        const nextTickCallback = () => {
+                            console.log('$nextTick => ', this.pageData);
+                        };
+                        this.$nextTick(nextTickCallback);
+                        setTimeout(() => {
+                            console.log('setTimeout => ', this.pageData);
+                        });
+                        this.pageData = 2;
+                        this.pageData = 3;
+                    },
+                },
+                // 运行时版本
+                // render(createElement) {
+                //     return createElement(
+                //         'div',
+                //         {
+                //             props: {
+                //                 a: '343r',
+                //             },
+                //         },
+                //         [createElement('p', '32r23r23'), createElement('h1', 'erwrew')]
+                //     );
+                // },
+            }).$mount('#app');
+        </script>
+    </body>
+</html>

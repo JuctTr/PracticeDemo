@@ -1,0 +1,98 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>KeepAlive</title>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="showPost">切换到POST</button>
+            <button @click="showArchive">切换到ARCHIVE</button>
+            <!-- 动态组件 -->
+            <keep-alive>
+                <component v-bind:is="currentTabComponent"></component>
+            </keep-alive>
+            <h1 style="color: red">那么keep-alive是如何保存组件状态的呢？</h1>
+            <h2>使用缓存淘汰策略（LRU）算法</h2>
+            <p>
+                详情见
+                <a href="https://vue-js.com/learn-vue/BuiltInComponents/keep-alive.html" target="_blank">锚点</a>
+            </p>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            // 局部组件
+            const ComponentA = {
+                name: 'component-a',
+                template: `
+                        <div style="border: 1px solid red">
+                            <div>{{text}}</div>
+                            <div>{{state}}</div>
+                            <button @click="changeState">改变当前组件状态</button>
+                            <p style="color: red;">很明显，加了\< keep-alive \>内置组件，能够保存上一个组件的状态</p>
+                        </div>
+                `,
+                data() {
+                    return {
+                        text: '我是POST组件',
+                        state: 1,
+                    };
+                },
+                methods: {
+                    changeState() {
+                        ++this.state;
+                    },
+                },
+                activated() {
+                    console.log(this.$vnode.tag, '我被激活了');
+                },
+                deactivated() {
+                    console.error(this.$vnode.tag, '我被隐藏了');
+                },
+            };
+            const ComponentB = {
+                name: 'component-b',
+                template: `<div>{{text}}</div>`,
+                data() {
+                    return {
+                        text: '我是ARCHIVE组件',
+                    };
+                },
+                activated() {
+                    console.log(this.$vnode.tag, '我被激活了');
+                },
+                deactivated() {
+                    console.error(this.$vnode.tag, '我被隐藏了');
+                },
+            };
+            // 完整版本
+            new Vue({
+                components: {
+                    ComponentA,
+                    ComponentB,
+                },
+                computed: {
+                    currentTabComponent: function () {
+                        return 'component-' + this.currentTab.toLowerCase();
+                    },
+                },
+                data() {
+                    return {
+                        currentTab: 'a',
+                    };
+                },
+                methods: {
+                    showPost() {
+                        this.currentTab = 'a';
+                    },
+                    showArchive() {
+                        this.currentTab = 'b';
+                    },
+                },
+            }).$mount('#app');
+        </script>
+        <script src="./index.js"></script>
+    </body>
+</html>

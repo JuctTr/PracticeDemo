@@ -1,0 +1,101 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>测试nextTick</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- <div v-show="foo">{{ a }}</div> -->
+            <div v-if="foo">{{ a }}</div>
+            <div v-else>{{ b }}</div>
+            <button v-on:click="changeFoo">修改Foo数据</button>
+            <button v-on:click="changeA">修改A数据</button>
+            <pre>
+                <code>
+                    &ltdiv id="app"&gt
+                        &ltdiv v-if="foo">{{ a }}&lt/div&gt
+                        &ltdiv v-else&gt{{ b }}&lt/div&gt
+                        &ltbutton v-on:click="changeFoo"&gt修改Foo数据&lt/button&gt
+                        &ltbutton v-on:click="changeA"&gt修改A数据&lt/button&gt
+                    &lt/div&gt
+                    const vm = new Vue({
+                        // computed: {},
+                        data() {
+                            return {
+                                foo: true,
+                                a: 'A',
+                                b: 'B',
+                            };
+                        },
+                        methods: {
+                            changeA() {
+                                this.a = 'i am change';
+                            },
+                            changeFoo() {
+                                this.foo = !this.foo;
+                            },
+                        },
+                    }).$mount('#app');             
+                </code>
+            </pre>
+            <h1>解释</h1>
+            <p>
+                当你修改foo数据的时候，是不是会更新视图，那么是不是会执行render函数，是不是也会经过patch阶段，
+                那么就会用到data的数据，那么是不是就会再次触发getter，进而重新收集一下依赖，但这里有的同学就有问题了？
+            </p>
+            <h2 style="color: red">重新收集依赖，那原来的依赖呢？ 自然被清理掉了，那在哪里清理掉呢？</h2>
+            <p>
+                就在我们修改foo数据，更新视图之后，在当前的render-watcher实例的get()方法中，
+                后面有一个this.cleanupDeps()，清除了依赖，通过newDepIds集合来维持
+            </p>
+            <p>
+                所以当我们后续在修改a时，其实数据a的依赖器Dep中已经没有当前这个render-watcher了，那么再执行Dep.prototype.notify的时候，
+                自然在subs中取不到相应的watcher实例，就终止掉了，自然不会调用subs.update取更新视图
+            </p>
+            <h2 style="color: red">如果把v-if改成v-show呢？</h2>
+            <p>
+                v-show隐藏则是为该元素添加一行内联css样式 ——
+                display:none，dom元素依旧还在。v-if显示隐藏是将dom元素整个添加或删除。
+                所以在代码中，即使我们设置v-show=“false”了，操作this.a =
+                'xxxx'时，还是会触发视图（DOM）更新的，只是没有显示出来而已
+            </p>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            // 完整版本
+            const vm = new Vue({
+                // computed: {},
+                data() {
+                    return {
+                        foo: true,
+                        a: 'A',
+                        b: 'B',
+                    };
+                },
+                methods: {
+                    changeA() {
+                        this.a = 'i am change';
+                    },
+                    changeFoo() {
+                        this.foo = !this.foo;
+                    },
+                },
+                // 运行时版本
+                // render(createElement) {
+                //     return createElement(
+                //         'div',
+                //         {
+                //             props: {
+                //                 a: '343r',
+                //             },
+                //         },
+                //         [createElement('p', '32r23r23'), createElement('h1', 'erwrew')]
+                //     );
+                // },
+            }).$mount('#app');
+        </script>
+    </body>
+</html>
