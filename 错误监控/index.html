@@ -6,24 +6,57 @@
         <title>异常监控</title>
         <script>
             window.addEventListener('error', error => {
-                console.log('全局 error => ', error);
+                console.log(
+                    `%c window.onerror 可以捕获常见语法、同步、异步错误等错误；但无法捕获 Promise 错误、网络错误； `,
+                    'background: #04be02; color: #fff; border-radius: 2px;'
+                );
+
+                console.log('全局错误 => ', error);
             });
-            // window.addEventListener(
-            //     'error',
-            //     error => {
-            //         console.log('404 错误');
-            //         console.log(error);
-            //         // return true; // 中断事件传播
-            //     },
-            //     true
-            // );
-            // window.addEventListener('unhandledrejection', e => {
-            //     console.log('unhandledrejection => ', e);
-            // });
+            window.addEventListener('unhandledrejection', e => {
+                console.log('微任务全局错误 unhandledrejection => ', e);
+            });
+            window.addEventListener(
+                'error',
+                error => {
+                    console.log('捕获时发生的错误', '这里可以做一下判断，上报图片的错误');
+                    console.log(error);
+                    // return true; // 中断事件传播
+                },
+                true
+            );
         </script>
     </head>
     <body>
+        <h1>测试网络错误</h1>
+        <img src="https://cdn.img.cn" alt="我是一张有错误的图片" />
         <script>
+            console.log('====================== trycatch测试用例 ====================== ');
+            try {
+                // 微任务全局错误
+                // new Promise((resolve, reject) => {
+                //     throw new Error('异步错误');
+                // });
+                // new Promise((resolve, reject) => {
+                //     resolve();
+                // }).then(() => {
+                //     throw new Error('微任务错误');
+                // });
+                // 异步全局错误
+                // setTimeout(() => {
+                //     throw Error('异步错误: setTimeout');
+                // });
+                // 异步全局错误
+                // requestIdleCallback(() => {
+                //     throw new Error('宏任务错误: requestIdleCallback');
+                // });
+                // 被trycatch捕获
+                // throw new Error('同步错误');
+            } catch (error) {
+                console.log('我感知不到错误', error);
+            }
+            console.log('====================== 精读《捕获所有异步 error》 ====================== ');
+
             // https://juejin.cn/post/7004606483870515213
 
             // function syncError() {
@@ -62,20 +95,6 @@
 
             // let items1 = new Array(-20);
             // let items2 = new Array(Number.MAX_VALUE);
-
-            try {
-                // new Promise((resolve, reject) => {
-                //     throw new Error('异步错误');
-                // });
-                // setTimeout(() => {
-                //     error;
-                // });
-                requestIdleCallback(() => {
-                    throw new Error('异步错误: requestIdleCallback');
-                });
-            } catch (error) {
-                console.log('我感知不到错误', error);
-            }
         </script>
     </body>
 </html>
