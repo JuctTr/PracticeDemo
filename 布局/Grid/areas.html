@@ -1,0 +1,98 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid areas</title>
+        <link rel="stylesheet" href="./common.css" />
+        <style>
+            #container {
+                display: grid;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                grid-template-areas:
+                    'a b c'
+                    'd e f'
+                    'g h i';
+            }
+            #container .item-1 {
+                grid-area: e;
+            }
+            #container2 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+
+                grid-template-areas:
+                    'header header header'
+                    'main main sidebar'
+                    'footer footer footer';
+            }
+            #container3 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+
+                grid-template-areas:
+                    'a . c'
+                    'd . f'
+                    'g . i';
+            }
+        </style>
+    </head>
+    <body>
+        <p>网格布局允许指定"区域"（area），一个区域由单个或多个单元格组成。grid-template-areas属性用于定义区域。</p>
+        <div>
+            <h1>display: grid; grid-template-areas: 'a b c' 'd e f' 'g h i';</h1>
+            <span>foo</span>
+            <div id="container">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>grid-template-areas: 'header header header' 'main main sidebar' 'footer footer footer';</h1>
+            <span>foo</span>
+            <div id="container2">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>grid-template-areas: 'a . c' 'd . f' 'g . i';</h1>
+            <span>foo</span>
+            <div id="container3">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+    </body>
+</html>

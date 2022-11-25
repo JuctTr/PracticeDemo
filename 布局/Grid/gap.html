@@ -1,0 +1,63 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid gap</title>
+        <link rel="stylesheet" href="./common.css" />
+        <style>
+            #container {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+                row-gap: 20px;
+                column-gap: 20px;
+            }
+            #container2 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+                gap: 20px 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <p>row-gap用于设置行间距，column-gap用于设置列间距。</p>
+        <div>
+            <h1>display: grid; row-gap和column-gap</h1>
+            <span>foo</span>
+            <div id="container">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>gap属性是column-gap和row-gap的合并简写形式</h1>
+            <span>foo</span>
+            <div id="container2">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+    </body>
+</html>

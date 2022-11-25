@@ -1,0 +1,89 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid justify&align&place-self</title>
+        <link rel="stylesheet" href="./common.css" />
+        <style>
+            #container {
+                display: grid;
+                /* 作用于全部 */
+                justify-items: center;
+                align-items: center;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                border: 1px solid black;
+                justify-content: center;
+            }
+            #container .item-1 {
+                /* 作用于单个 */
+                justify-self: start;
+            }
+            #container .item-4 {
+                /* 作用于单个 */
+                justify-self: end;
+            }
+            #container .item-6 {
+                /* 作用于单个 */
+                justify-self: start;
+                align-self: start;
+            }
+            #container .item-9 {
+                /* 作用于单个 */
+                justify-self: stretch;
+            }
+            #container1 {
+                display: grid;
+                /* justify-items: center;
+                align-items: center; */
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                border: 1px solid black;
+                justify-content: stretch;
+                align-content: stretch;
+            }
+            #container1 .item-1 {
+                place-self: center center;
+            }
+            #container1 .item-9 {
+                place-self: end end;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>display: grid; justify-self</h1>
+            <span>foo</span>
+            <div id="container">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: grid; place-self</h1>
+            <p>place-self属性是align-self属性和justify-self属性的合并简写形式。</p>
+            <span>foo</span>
+            <div id="container1">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+    </body>
+</html>

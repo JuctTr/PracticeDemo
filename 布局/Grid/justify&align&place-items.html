@@ -1,0 +1,85 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid justify&align&place-items</title>
+        <link rel="stylesheet" href="./common.css" />
+        <style>
+            #container {
+                display: grid;
+                justify-items: center;
+                align-items: center;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                border: 1px solid black;
+            }
+            #container2 {
+                display: inline-grid;
+                justify-items: center;
+                align-items: center;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                border: 1px solid black;
+            }
+            #container3 {
+                display: inline-grid;
+                place-items: start end;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>display: grid; justify-items: center; align-items: center;</h1>
+            <span>foo</span>
+            <div id="container">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: inline-grid; justify-items: center; align-items: center;</h1>
+            <span>foo</span>
+            <div id="container2">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: inline-grid; place-items: start end;</h1>
+            <p>place-items属性是align-items属性和justify-items属性的合并简写形式。</p>
+            <span>foo</span>
+            <div id="container3">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+    </body>
+</html>

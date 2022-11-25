@@ -1,0 +1,137 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid template-columns&row</title>
+        <link rel="stylesheet" href="./common.css" />
+        <style>
+            #container {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+            }
+            #container2 {
+                display: inline-grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+            }
+            #container3 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: 100px 100px 100px 100px;
+                /* 每一行的行高 */
+                grid-template-rows: 100px 100px 100px;
+            }
+            #container4 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: repeat(4, 25%);
+                /* 每一行的行高 */
+                /* grid-template-rows: repeat(3, 33, 33%); */
+            }
+            #container5 {
+                display: grid;
+                /* 每一列的列宽 */
+                grid-template-columns: repeat(auto-fill, 100px);
+                /* 每一行的行高 */
+                /* grid-template-rows: repeat(3, 33, 33%); */
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>display: grid;</h1>
+            <span>foo</span>
+            <div id="container">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: inline-grid;</h1>
+            <span>foo</span>
+            <div id="container2">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: grid; 4列 3行</h1>
+            <span>foo</span>
+            <div id="container3">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+                <div class="item item-9">10</div>
+                <div class="item item-9">11</div>
+                <div class="item item-9">12</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: grid; 百分比</h1>
+            <span>foo</span>
+            <div id="container4">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+                <div class="item item-9">10</div>
+                <div class="item item-9">11</div>
+                <div class="item item-9">12</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: grid; repeat(auto-fill, 100px)</h1>
+            <span>foo</span>
+            <div id="container5">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+                <div class="item item-9">10</div>
+                <div class="item item-9">11</div>
+                <div class="item item-9">12</div>
+            </div>
+            <span>bar</span>
+        </div>
+    </body>
+</html>
