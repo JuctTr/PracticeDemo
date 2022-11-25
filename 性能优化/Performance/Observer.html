@@ -1,0 +1,68 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=a, initial-scale=1.0" />
+        <title>PerformanceObserver</title>
+        <script>
+            const performanceObserver = new PerformanceObserver((entries, observer, droppedEntriesCount) => {
+                console.log(`%c PerformanceObserver `, 'background: #04be02; color: #fff; border-radius: 2px;');
+                entries.getEntries().forEach(entry => {
+                    if (entry.entryType === 'paint') {
+                        console.log(`${entry.name}'s startTime: ${entry.startTime}`);
+                        // console.log(`${entry.name}'s`, entry);
+                    }
+                    if (entry.entryType === 'mark') {
+                        console.log(`${entry.name}'s startTime: ${entry.startTime}`);
+                        // console.log(`${entry.name}'s`, entry);
+                    }
+                    if (entry.entryType === 'measure') {
+                        console.log(`${entry.name}'s duration: ${entry.duration}`);
+                        // console.log(`${entry.name}'s`, entry);
+                    }
+                    // 观察长任务
+                    if (entry.entryType === 'longtask') {
+                        console.log(`${entry.name}'s duration: ${entry.duration}`);
+                        // console.log(`${entry.name}'s`, entry);
+                    }
+                });
+                // console.log(observer);
+            });
+            performanceObserver.observe({ entryTypes: ['paint', 'measure', 'mark', 'longtask'] });
+            performance.mark('vue-page-start');
+        </script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>测试PerformanceObserver</h1>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <script>
+            const vm = new Vue({
+                computed: {},
+                data() {
+                    return {};
+                },
+                created() {
+                    performance.mark('vue-created-end');
+                    // 其实这里可以不用这个，这种应对如果你在业务逻辑，想要测试两点之间的时间差，可以用这个
+                    // performance.measure('首屏渲染', 'vue-page-start', 'vue-created-end');
+                },
+                mounted() {
+                    performance.mark('vue-mounted-end');
+                    this.measurePerformanceDone();
+                },
+                methods: {
+                    measurePerformanceDone() {
+                        // const measure = performance.measure('首屏内容渲染', 'vue-page-start', 'vue-mounted-end');
+
+                        performance.clearMarks();
+                        performance.clearMeasures();
+                    },
+                },
+            }).$mount('#app');
+        </script>
+    </body>
+</html>

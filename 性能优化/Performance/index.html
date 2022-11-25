@@ -1,0 +1,131 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=a, initial-scale=1.0" />
+        <title>测试Performance API</title>
+    </head>
+    <body>
+        <p>
+            <span>【type：0】</span>
+            <a href="http://127.0.0.1:5500/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/Performance/index.html">自己页面</a>
+        </p>
+        <p>
+            <span>【type：1】</span>
+            <button id="locationReload">通过 window.location.reload，或者浏览器左上角刷新按钮 刷新的页面</button>
+        </p>
+        <p>
+            <span>【type：2】</span>
+            通过浏览器的前进、后退按钮进入的页面
+            <a href="https://baidu.com"> 点击去百度再通过后退回来</a>
+        </p>
+        <p>
+            <span>【type：255】</span>
+            非以上的方式进入页面的（如：重定向等）
+        </p>
+
+        <script>
+            const locationReloadBtn = document.querySelector('#locationReload');
+            locationReloadBtn.addEventListener('click', () => {
+                window.location.reload();
+            });
+            window.addEventListener('load', () => {});
+            setTimeout(() => {
+                if ('performance' in window) {
+                    const timing = window.performance.timing;
+                    console.log(timing);
+                    const {
+                        navigationStart,
+                        redirectStart,
+                        redirectEnd,
+                        fetchStart,
+                        domainLookupStart,
+                        domainLookupEnd,
+                        connectStart,
+                        secureConnectionStart,
+                        connectEnd,
+                        requestStart,
+                        responseStart,
+                        responseEnd,
+                        domLoading,
+                        domInteractive,
+                        domContentLoadedEventStart,
+                        domContentLoadedEventEnd,
+                        domComplete,
+                        loadEventStart,
+                        loadEventEnd,
+                        unloadEventStart,
+                        unloadEventEnd,
+                    } = window.performance.timing;
+                    const timeOrigin = window.performance.timeOrigin;
+
+                    console.log('性能监测时间 到 导航开始  之间的时间差 =>', navigationStart - timeOrigin);
+                    console.log('同一个浏览器的上一个页面卸载 unload 结束时的时间戳 （导航开始）=> ', navigationStart);
+                    // console.log(
+                    //     '导航开始与重定向之间的时间差 () => ',
+                    //     redirectStart - navigationStart < 0 ? 0 : redirectStart - navigationStart
+                    // );
+                    console.log('重定向所消耗的时间 => ', redirectEnd - redirectStart);
+                    console.log(
+                        '重定向结束时间与当前页面第一次HTTP请求时间差 => ',
+                        fetchStart - redirectEnd === fetchStart ? 0 : fetchStart - redirectEnd
+                    );
+                    console.log('导航开始 到 当前页面获取资源 之间的时间差 => ', fetchStart - navigationStart);
+                    console.log(domainLookupStart - fetchStart);
+                    console.log(domainLookupEnd - domainLookupStart);
+                    console.log(connectEnd - connectStart);
+                    console.log('http请求 到 拿到响应的时间差', responseStart - requestStart);
+                    console.log(responseEnd - responseStart);
+                    console.log('导航开始 到 DOM元素开始加载 之间的时间差 => ', domLoading - navigationStart);
+                    console.log('导航开始 到 DOM元素加载完成 之间的时间差 => ', domComplete - navigationStart);
+                    console.log('页面事件加载总时间 之间的时间差 => ', loadEventEnd - loadEventStart);
+                    console.log('导航开始 到 loadEventEnd 之间的时间差 => ', loadEventEnd - navigationStart);
+
+                    const keys = Object.keys(timing.toJSON());
+                    console.table(
+                        keys
+                            .filter(key => timing[key] > 0 && !key.startsWith('unload'))
+                            .map(key => {
+                                const time = timing[key];
+                                return {
+                                    key,
+                                    time,
+                                    diff: timing[key] - navigationStart,
+                                };
+                            })
+                            .sort((a, b) => b.diff - a.diff)
+                    );
+                    console.log(performance.getEntries());
+
+                    const paintTime = performance.getEntriesByType('paint');
+
+                    console.log('获取 渲染 相关的 指标', paintTime);
+
+                    console.log('首屏渲染时间 => ', paintTime[0]?.startTime);
+
+                    console.log('首屏 内容 渲染时间 => ', paintTime[1]?.startTime);
+                }
+            }, 2000);
+
+            performance.mark('measure-start');
+
+            setTimeout(() => {
+                console.log('======================= 记录时间点 =======================');
+                performance.mark('measure-end');
+
+                const measure = performance.measure('measure-list', 'measure-start', 'measure-end');
+                console.log(measure);
+                const measureArr = performance.getEntriesByName('measure-list', 'measure');
+                console.log(measureArr);
+                console.log(performance.getEntriesByType('measure'));
+
+                console.log('返回一个表示从性能测量时刻开始经过的毫秒数 => ', performance.now());
+
+                performance.clearMarks();
+                performance.clearMeasures();
+
+                console.log(performance.getEntries());
+            }, 3000);
+        </script>
+    </body>
+</html>
