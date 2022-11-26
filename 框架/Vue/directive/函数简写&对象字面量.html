@@ -1,0 +1,64 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>动态指令</title>
+    </head>
+    <body>
+        <div id="app">
+            <h1>想在 bind 和 update 时触发相同行为，而不关心其它的钩子</h1>
+            <div v-if="change" id="baseexample">
+                <p>Scroll down the page</p>
+                <p v-color-swatch="bgColor">Stick me 200px from the top of the page</p>
+                <div v-if="childChange">if条件</div>
+                <div v-else>else条件</div>
+            </div>
+            <div v-else>变量改变了</div>
+            <button @click="changeVar">改变当前绑定的DOM元素状态</button>
+            <button @click="changeChild">改变当前绑定的DOM元素的子节点状态</button>
+            <h1>对象字面量</h1>
+            <div v-demo="{ color: 'white', text: 'hello!' }"></div>
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" crossorigin></script>
+        <script>
+            // 全局自定义指令
+            Vue.directive('color-swatch', function (el, binding, vnode) {
+                console.log(
+                    'glocal【bind & update】想在 bind 和 update 时触发相同行为，而不关心其它的钩子。可以这样写：'
+                );
+                // console.log('当前绑定的元素 => ', el);
+                // console.log('binding => ', binding);
+                // console.log('Vue 编译生成的虚拟节点 => ', vnode);
+                el.style.backgroundColor = binding.value;
+            });
+            Vue.directive('demo', function (el, binding) {
+                console.log(binding.value.color); // => "white"
+                console.log(binding.value.text); // => "hello!"
+                el.innerHTML = `【颜色】：${binding.value.color}，【文案】：${binding.value.text}`;
+            });
+
+            const vm = new Vue({
+                computed: {},
+                data() {
+                    return {
+                        message: '默认文案',
+                        change: true,
+                        childChange: true,
+                        direction: 'left',
+                        bgColor: 'red',
+                    };
+                },
+                methods: {
+                    changeVar() {
+                        this.change = !this.change;
+                    },
+                    changeChild() {
+                        this.childChange = !this.childChange;
+                    },
+                },
+            }).$mount('#app');
+        </script>
+    </body>
+</html>
