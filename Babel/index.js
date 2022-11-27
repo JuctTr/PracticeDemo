@@ -1,4 +1,4 @@
-// 一、最新ES语法，比如：箭头函数，let/const。
+// 一、最新ES语法，比如：箭头函数，let/const，class
 // 二、最新ES Api，比如Promise
 // 三、最新ES实例/静态方法，比如String.prototype.include
 
@@ -50,6 +50,25 @@ let myForm = document;
 
 const firstName = message?.body?.user?.firstName || 'default';
 const fooValue = myForm.querySelector('input[name=foo]')?.value;
+
+// 类
+class Point {
+    constructor() {
+        // ...
+    }
+
+    xxxxmethods() {
+        // ...
+    }
+
+    toString() {
+        // ...
+    }
+
+    toValue() {
+        // ...
+    }
+}
 
 /**
  * 我们可以看出来，ES6+新增的静态方法 以及 Promise 是转化不了的，

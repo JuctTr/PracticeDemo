@@ -51,6 +51,25 @@ let myForm = document;
 const firstName = message?.body?.user?.firstName || 'default';
 const fooValue = myForm.querySelector('input[name=foo]')?.value;
 
+// 类
+class Point {
+    constructor() {
+        // ...
+    }
+
+    xxxxmethods() {
+        // ...
+    }
+
+    toString() {
+        // ...
+    }
+
+    toValue() {
+        // ...
+    }
+}
+
 /**
  * 我们可以看出来，ES6+新增的静态方法 以及 Promise 是转化不了的，
  * 那怎么转化呢？看案例二
