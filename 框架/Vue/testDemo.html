@@ -1,0 +1,70 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>开发环境版本测试页面</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">{{ onlyOne }}</div>
+            <!-- <div v-for="item in arr">{{item}}</div>
+            <button v-on:click="pushItem">push一个数组item</button>
+            <button v-on:click="popItem">pop一个数组item</button>
+            <button v-on:click="sortArr">sort 数组item</button>
+            <div>第一个：{{ onlyOne }}</div>
+            <div>第二个：{{ onlyOne }}</div> -->
+            <!-- <div>{{iIsComputed}}</div>
+            <button v-on:click="changeOnlyOne">修改onlyOne</button>
+            <div>{{ deepData.a.b }}</div>
+            <button v-on:click="changeDeepData">修改deepData</button> -->
+        </div>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" crossorigin></script>
+        <script>
+            // 完整版本
+            const vm = new Vue({
+                // 继承某个组件
+                // extends: 'xxx',
+                // 混入某一个对象options
+                mixins: ['xxx'],
+                // 局部过滤器
+                filters: {},
+                // 局部自定义指令
+                directives: {},
+                // 局部自定义组件
+                components: {},
+                watch: {},
+                computed: {
+                    iIsComputed() {
+                        return 'iIsComputed' + this.onlyOne;
+                    },
+                },
+                data() {
+                    return {
+                        deepData: {
+                            a: {
+                                b: 1,
+                            },
+                        },
+                    };
+                },
+                beforeCreate() {},
+                created() {},
+                beforeMount() {},
+                mounted() {},
+                beforeUpdate() {},
+                updated() {},
+                activated() {},
+                deactivated() {},
+                beforeDestroy() {},
+                destroyed() {},
+                errorCaptured() {},
+                methods: {
+                    xxxxmethods() {},
+                },
+                // render() {}
+            }).$mount('#app');
+        </script>
+    </body>
+</html>
