@@ -1,0 +1,27 @@
+# Browsers that we support
+# 查阅 https://github.com/browserslist/browserslist#readme
+#
+# 如果你不是要兼容所有的浏览器和环境，推荐你指定目标环境，这样你的编译代码（@babel/preset-env）能够保持最小。
+#
+# 可以在package.json中配置
+# {
+#   "browserslist": [
+#     "last 1 version",
+#     "> 1%",
+#     "maintained node versions",
+#     "not dead"
+#   ]
+# }
+
+
+last 1 versions # 最后的两个版本
+> 1% # 代表全球超过1%使用的浏览器
+Firefox >= 20
+Android >= 4.0
+iOS >= 8
+maintained node versions # 所有还被 node 基金会维护的 node 版本
+not dead
+
+# defaults and supports es6-module
+# maintained node versions
+
