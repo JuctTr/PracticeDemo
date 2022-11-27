@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "compiler": "babel ./Babel/index.js --out-dir ./Babel/dist --watch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
