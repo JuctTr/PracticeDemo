@@ -17,6 +17,9 @@
     },
     "homepage": "https://github.com/JuctTr/PracticeDemo#readme",
     "devDependencies": {
+        "@babel/cli": "^7.19.3",
+        "@babel/core": "^7.20.2",
+        "@babel/preset-env": "^7.20.2",
         "@vue/cli": "^5.0.8",
         "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",
