@@ -72,10 +72,15 @@
                     );
                     console.log('导航开始 到 当前页面获取资源 之间的时间差 => ', fetchStart - navigationStart);
                     console.log(domainLookupStart - fetchStart);
-                    console.log(domainLookupEnd - domainLookupStart);
-                    console.log(connectEnd - connectStart);
+                    console.log('DNS 解析耗时：', domainLookupEnd - domainLookupStart);
+                    console.log('TCP 连接耗时: ', connectEnd - connectStart);
                     console.log('http请求 到 拿到响应的时间差', responseStart - requestStart);
                     console.log(responseEnd - responseStart);
+                    console.log('First Byte时间: ', responseStart - domainLookupStart);
+                    console.log('白屏时间: ', responseEnd - fetchStart);
+                    console.log('首次可交互时间: ', domInteractive - fetchStart);
+                    console.log('DOM Ready 时间: ', domContentLoadedEventEnd - fetchStart);
+                    console.log('页面完全加载时间: ', loadEventStart - fetchStart);
                     console.log('导航开始 到 DOM元素开始加载 之间的时间差 => ', domLoading - navigationStart);
                     console.log('导航开始 到 DOM元素加载完成 之间的时间差 => ', domComplete - navigationStart);
                     console.log('页面事件加载总时间 之间的时间差 => ', loadEventEnd - loadEventStart);

@@ -1,0 +1,25 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>web-vitals</title>
+        <!-- 使用ESM模式引入 -->
+        <script type="module">
+            import { onCLS, onFID, onLCP, onFCP } from 'https://unpkg.com/web-vitals@3?module';
+            // Frist Contentful Paint 首次内容渲染
+            onFCP(console.log);
+            // Largest Contentful Paint 最大内容绘制
+            onLCP(console.log);
+            // Cumulative Layout Shift 累积布局偏移
+            onCLS(console.log);
+            // First Input Delay 首次输入延迟
+            onFID(console.log);
+        </script>
+    </head>
+    <body>
+        <h1>web-vitals 库</h1>
+        <p>Github: <a href="https://github.com/GoogleChrome/web-vitals/">web-vitals</a></p>
+        <p><a href="https://web.dev/learn-core-web-vitals/">学习关键指标网站</a></p>
+    </body>
+</html>
