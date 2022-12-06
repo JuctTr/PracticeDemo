@@ -1,0 +1,25 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>拆分CSS样式</title>
+        <!-- 打印相关的CSS -->
+        <link type="text/css" href="./print.css" rel="stylesheet" media="print" />
+        <!-- 媒体查询相关的CSS -->
+        <link type="text/css" href="./mediaQueries.css" rel="stylesheet" media="(min-width: 40em)" />
+        <!-- 首屏的主要CSS，它的下载会阻塞页面解析 -->
+        <link type="text/css" href="./blockRender.css" rel="stylesheet" />
+        <style>
+            /* 首屏关键CSS */
+        </style>
+    </head>
+    <body>
+        <h1 class="block">Block Rendering CSS</h1>
+        <h1 class="print">Print CSS</h1>
+        <h1 class="media">Media Queries CSS</h1>
+        <script>
+            console.log('prase Html');
+        </script>
+    </body>
+</html>

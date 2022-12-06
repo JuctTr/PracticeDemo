@@ -1,0 +1,64 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>预加载关键资源</title>
+        <!-- 
+            注意：预加载的资源，不会执行和应用
+         -->
+        <!-- 预加载web字体 -->
+        <link
+            rel="preload"
+            href="https://wq.360buyimg.com/data/ppms/others/JDZH_Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+        <!-- 预加载JavaScript -->
+        <link rel="preload" as="script" href="preload.js" />
+        <!-- 预加载CSS -->
+        <link rel="preload" as="style" href="preload.css" />
+        <!-- 预加载完立即执行，这种就没必要预加载了，无意义的做法 -->
+        <!-- <link rel="preload" as="style" href="preload.css" onload="this.onload=null;this.rel='stylesheet'" /> -->
+        <style>
+            @font-face {
+                font-family: 'JDZH-Regular';
+                src: url('https://wq.360buyimg.com/data/ppms/others/JDZH_Regular.ttf') format('truetype');
+                font-display: swap;
+            }
+            body {
+                font-family: 'JDZH-Regular';
+            }
+        </style>
+    </head>
+    <body>
+        <h1>我是标题</h1>
+        <p>我是段落</p>
+        <span> 14.5 </span>
+
+        <script>
+            // 需要应用该CSS，或者javascript 的时候再动态执行
+            setTimeout(() => {
+                const docFrame = document.createDocumentFragment();
+
+                const style = document.createElement('link');
+                style.rel = 'stylesheet';
+                style.href = 'preload.css';
+                docFrame.appendChild(style);
+
+                const js = document.createElement('script');
+                js.type = 'text/javascript';
+                js.src = 'preload.js';
+
+                js.onload = function () {
+                    console.log('onload js');
+                };
+
+                docFrame.appendChild(js);
+
+                document.head.appendChild(docFrame);
+            }, 1000);
+        </script>
+    </body>
+</html>
