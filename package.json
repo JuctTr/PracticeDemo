@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "compiler": "babel ./Babel/index.js --out-dir ./Babel/dist --watch",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "esbuild": "esbuild ./前端工程化/learnESbuild/index.jsx --bundle --outfile=out.js"
     },
     "repository": {
         "type": "git",
@@ -23,6 +24,7 @@
         "@babel/plugin-transform-runtime": "^7.19.6",
         "@babel/preset-env": "^7.20.2",
         "@vue/cli": "^5.0.8",
+        "esbuild": "^0.16.1",
         "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",
         "koa": "^2.13.4",
@@ -36,6 +38,8 @@
     "dependencies": {
         "@babel/runtime": "^7.20.1",
         "core-js": "^3.26.1",
-        "express": "^4.18.2"
+        "express": "^4.18.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     }
 }
