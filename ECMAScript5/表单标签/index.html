@@ -1,0 +1,118 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="formList">
+            <ul>
+                <h1>文案相关</h1>
+                <li>
+                    单文本输入框：<input
+                        id="singleText"
+                        type="text"
+                        name="单文本输入框"
+                        placeholder="默认文案"
+                        required
+                        minlength="4"
+                        maxlength="8"
+                        size="20"
+                    />
+                </li>
+                <li>
+                    输入电话号码：<input
+                        id="tel"
+                        type="tel"
+                        placeholder="请输入电话号码（被开启禁用了）"
+                        size="30"
+                        disabled
+                    />
+                </li>
+                <li>输入 URL：<input id="url" type="url" placeholder="请输入URL" autofocus autocomplete="on" /></li>
+                <li>
+                    输入密码（只读不能被修改）：<input
+                        id="password"
+                        type="password"
+                        placeholder="请输入密码（自动聚焦）"
+                        value="defaultValue"
+                        size="30"
+                        readonly
+                    />
+                </li>
+                <li>
+                    输入数字（可以限制最大和最小值）：<input
+                        id="number"
+                        type="number"
+                        placeholder="请输入数字"
+                        size="30"
+                        max="10000000000000"
+                        min="5"
+                    />
+                </li>
+                <li>
+                    搜索字符串的单行文字区域：<input id="search" type="search" placeholder="搜索字符串的单行文字区域" />
+                </li>
+                <h1>按钮相关</h1>
+                <li><input id="button" type="button" value="按钮" /></li>
+                <li><input id="submit" type="submit" value="提交按钮" /></li>
+                <li><input id="reset" type="reset" value="重置按钮" /></li>
+                <li><input id="checkbox" type="checkbox" value="多选框" checked />已经选择了</li>
+                <li><input id="radio" type="radio" value="单选框" /></li>
+                <li><input id="range" type="range" value="范围" /></li>
+                <li><input id="hidden" type="hidden" value="隐藏" /></li>
+                <li>
+                    可以定义图片的宽度/高度<input
+                        id="image"
+                        type="image"
+                        value="图像"
+                        src="https://placekitten.com/400/400"
+                        width="200"
+                        height="200"
+                    />
+                </li>
+
+                <h1>时间相关</h1>
+                <li><input id="time" type="time" value="日期" /></li>
+                <li><input id="week" type="week" value="日期" /></li>
+                <li><input id="month" type="month" value="日期" /></li>
+                <li><input id="date" type="date" value="日期" /></li>
+                <li><input id="datetime-local" type="datetime-local" value="日期" /></li>
+                <h1>文件相关</h1>
+                <li><input id="email" type="email" placeholder="请输入邮箱地址" /></li>
+                <li>可以多选上传<input id="file" type="file" value="文件" accept="image/*" multiple /></li>
+                <li><input id="color" type="color" value="颜色" /></li>
+            </ul>
+        </form>
+        <script>
+            // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event
+            const singleText = document.querySelector('#singleText');
+            singleText.addEventListener('beforeinput', e => {
+                console.log('singleText [beforeinput] => ', e);
+            });
+            singleText.addEventListener('input', e => {
+                console.log('singleText [input] => ', e);
+            });
+            singleText.addEventListener('change', e => {
+                console.log('singleText [change] => ', e);
+            });
+            singleText.addEventListener('blur', e => {
+                console.log('singleText [blur] => ', e);
+            });
+            singleText.addEventListener('focus', e => {
+                console.log('singleText [focus] => ', e);
+            });
+            singleText.addEventListener('copy', e => {
+                console.log('singleText [copy] => ', e);
+            });
+            singleText.addEventListener('cut', e => {
+                console.log('singleText [cut] => ', e);
+            });
+            singleText.addEventListener('paste', e => {
+                console.log('singleText [paste] => ', e);
+            });
+        </script>
+    </body>
+</html>
