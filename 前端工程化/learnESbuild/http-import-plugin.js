@@ -6,6 +6,7 @@ module.exports = () => ({
 
         // 1. 拦截 CDN 请求
         build.onResolve({ filter: /^https?:\/\// }, args => {
+            console.log('拦截 CDN 请求 => ', args);
             if (args.importer) {
                 return {
                     path: args.path,
@@ -15,6 +16,7 @@ module.exports = () => ({
         });
 
         build.onResolve({ filter: /.*/, namespace: 'http-url' }, args => {
+            console.log('拦截 所有 请求 => ', args);
             return {
                 // 重写路径
                 path: new URL(args.path, args.importer).toString(),
