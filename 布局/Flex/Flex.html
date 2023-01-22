@@ -9,26 +9,58 @@
                 margin: 0;
                 padding: 0;
             }
-            #root {
-                width: 300px;
+            .container {
+                width: 400px;
                 display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: center;
+                /* flex-direction: row; */
                 border: 1px solid black;
             }
             .a {
-                width: 30px;
+                height: 100px;
+                background-color: red;
+                flex: 1;
+            }
+            .b {
+                height: 100px;
+                background-color: green;
+                flex: 2;
+            }
+            .c {
+                height: 100px;
+                background-color: blue;
+                flex: 1;
+            }
+            .d {
+                width: 200px;
+                flex-shrink: 2;
                 height: 100px;
                 background-color: red;
             }
-            .b {
-                width: 30px;
+            .e {
+                width: 200px;
+                flex-shrink: 1;
+                height: 100px;
+                background-color: green;
+            }
+            .f {
+                width: 200px;
+                flex-shrink: 1;
                 height: 100px;
                 background-color: blue;
             }
-            .c {
-                width: 30px;
+            .g {
+                width: 200px;
+                height: 100px;
+                /* background-color: red; */
+                flex-basis: 100px;
+            }
+            .h {
+                width: 200px;
+                height: 100px;
+                background-color: green;
+            }
+            .i {
+                width: 200px;
                 height: 100px;
                 background-color: blue;
             }
@@ -36,9 +68,24 @@
     </head>
     <body>
         <div id="root">
-            <div class="a"></div>
-            <div class="b"></div>
-            <div class="c"></div>
+            <h1>flex-grow</h1>
+            <div class="container">
+                <div class="a">A</div>
+                <div class="b">B</div>
+                <div class="c">C</div>
+            </div>
+            <h1>flex-shrink</h1>
+            <div class="container">
+                <div class="d">我的flex-shrink: 2;空间不足，我被缩小了</div>
+                <div class="e">B</div>
+                <div class="f">C</div>
+            </div>
+            <h1>flex-basis</h1>
+            <div class="container">
+                <div class="g">设置了一个flex项目的初始主尺寸</div>
+                <div class="h">B</div>
+                <div class="i">C</div>
+            </div>
         </div>
     </body>
 </html>
