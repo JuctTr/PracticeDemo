@@ -1,0 +1,77 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>1px问题处理</title>
+        <style>
+            .container {
+                display: flex;
+                position: relative;
+            }
+            /* box-shadow + transform */
+            span.one-pixel-line {
+                width: 229px;
+                position: relative;
+            }
+            span.one-pixel-line::after {
+                content: '';
+                width: 229px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                box-shadow: 0 0 0 1px #b4a078;
+                transform-origin: 0 bottom;
+                transform: scaleY(0.5) translateZ(0);
+            }
+            @media (min-resolution: 2dppx) {
+                span.one-pixel-line.shadow::after {
+                    box-shadow: 0 0 0 0.5px #b4a078;
+                }
+            }
+            @media (min-resolution: 3dppx) {
+                span.one-pixel-line.shadow::after {
+                    box-shadow: 0 0 0 0.333333px #b4a078;
+                }
+            }
+            /* 伪元素 + transform + 结合媒体查询，根据设备像素比进行缩放*/
+            .border_1px::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                height: 1px;
+                width: 100%;
+                background-color: #000;
+                transform-origin: 50% 0;
+            }
+            @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+                .border_1px:before {
+                    transform: scaleY(0.5);
+                }
+            }
+            @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+                .border_1px:before {
+                    transform: scaleY(0.33);
+                }
+            }
+            .border_svg {
+                width: 100%;
+                border: 100px solid transparent;
+                border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%23000' width='100%25' height='50%25'/%3E%3C/svg%3E")
+                    2 1 stretch;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>box-shadow + transform</h1>
+        <div class="container">
+            <span class="one-pixel-line shadow"></span>
+        </div>
+        <h1>伪元素 + transform + 结合媒体查询，根据设备像素比进行缩放</h1>
+        <div class="container">
+            <span class="border_1px"></span>
+        </div>
+        <h1>使用SVG实现</h1>
+        <div class="container"><span class="border_svg"></span></div>
+    </body>
+</html>
