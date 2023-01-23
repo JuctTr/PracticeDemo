@@ -1,0 +1,32 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>垂直居中</title>
+        <style>
+            .parent {
+                width: 500px;
+                height: 500px;
+                border: 1px solid black;
+                position: relative;
+            }
+            .child {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="parent">
+            <div class="child"></div>
+        </div>
+    </body>
+</html>
