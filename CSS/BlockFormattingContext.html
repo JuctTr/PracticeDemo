@@ -1,0 +1,75 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BlockFormattingContext</title>
+        <style>
+            section {
+                height: 150px;
+            }
+            .box {
+                background-color: rgb(224, 206, 247);
+                border: 5px solid rebeccapurple;
+            }
+            .box[style] {
+                background-color: aliceblue;
+                border: 5px solid steelblue;
+            }
+            .float {
+                float: left;
+                width: 200px;
+                height: 100px;
+                background-color: rgba(255, 255, 255, 0.5);
+                border: 1px solid black;
+                padding: 10px;
+            }
+            .outer {
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>浮动元素</h1>
+        <section>
+            <div class="box">
+                <div class="float">I am a floated box!</div>
+                <p>I am content inside the container.</p>
+            </div>
+        </section>
+        <section>
+            <div class="box" style="overflow: auto">
+                <div class="float">I am a floated box!</div>
+                <p>
+                    I am content inside the <code style="color: red; font-weight: 700">overflow:auto</code> container.
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="box" style="display: flow-root">
+                <div class="float">I am a floated box!</div>
+                <p>
+                    I am content inside the
+                    <code style="color: red; font-weight: 700">display:flow-root</code> container.
+                </p>
+            </div>
+        </section>
+        <h1>外边距崩塌</h1>
+        <div class="outer">
+            增加了一个<code style="color: red; font-weight: 700">overflow: auto;</code>父元素
+            <div style="width: 100px; height: 100px; border: 1px solid black; margin-bottom: 20px"></div>
+        </div>
+        <div style="width: 100px; height: 100px; background-color: blue; margin-top: 20px"></div>
+        <div style="width: 300px; height: 300px; background-color: red; color: #fff; margin: 20px; overflow: auto">
+            <div style="width: 100px; height: 100px; background-color: blue; margin: 20px">子元素，外边距为20px</div>
+            父元素，外边距为20px，很明显，我们外边距重叠了，我设置
+            <code style="color: #fff; font-weight: 700">overflow: auto; </code>来防止重叠
+        </div>
+        <h1>flex布局</h1>
+        <div style="display: flex; flex-direction: column">
+            <div style="width: 100px; height: 100px; background-color: red; margin: 20px"></div>
+            <div style="width: 100px; height: 100px; background-color: green; margin: 20px"></div>
+            <div style="width: 100px; height: 100px; background-color: blue; margin: 20px"></div>
+        </div>
+    </body>
+</html>
