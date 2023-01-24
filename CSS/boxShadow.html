@@ -1,0 +1,32 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            @keyframes shadowFlicker {
+                from {
+                    box-shadow: 0 5px 20px 0 transparentize(#197ad6, 0.6);
+                }
+                50% {
+                    box-shadow: 0 5px 20px 0 #197ad6;
+                }
+                to {
+                    box-shadow: 0 5px 20px 0 transparentize(#197ad6, 0.6);
+                }
+            }
+            .container {
+                margin-top: 300px;
+                width: 100px;
+                height: 100px;
+                animation-name: shadowFlicker;
+                animation-duration: 3000ms;
+                animation-iteration-count: infinite;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container"></div>
+    </body>
+</html>
