@@ -1,0 +1,34 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>rem 适配方案</title>
+        <style>
+            html {
+                font-size: 20px;
+                font-size: 5.3333333vw !important;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 18.75rem;
+                height: 21.33%;
+                background-color: blue;
+            }
+            @media only screen and (min-width: 540px) {
+                html {
+                    font-size: 28.8px !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>我是标题</h1>
+        <p>我是普通字体</p>
+        <h1>利用媒体查询，动态修改 html 的 font-size</h1>
+        <div class="container"></div>
+    </body>
+</html>
