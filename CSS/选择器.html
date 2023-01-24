@@ -1,0 +1,79 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>选择器优先级</title>
+        <style>
+            * {
+                /* background-color: saddlebrown; */
+            }
+            .rootClass {
+                background-color: green;
+            }
+            #root {
+                background-color: blue;
+            }
+            div {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+            }
+            .lastClass {
+                background-color: yellow;
+            }
+            .childSelector > span {
+                color: blue;
+            }
+            p ~ span {
+                color: red;
+            }
+            li:nth-child(4) + li {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div id="root" class="rootClass lastClass"></div> -->
+        <div id="root" class="rootClass lastClass" style="width: 300px; height: 300px; background-color: black"></div>
+        <!-- <myTag></myTag>
+        <p>html 的 容忍度
+            <div>
+                
+        </p>
+        </div> -->
+        <span id="span1">
+            before div
+            <div style="font-size: 22px">div</div>
+            after div
+        </span>
+        <span id="span2">new span</span>
+        <!-- 
+            优先级：!important > inline style > id > class/伪类/属性选择器 > 标签/伪元素选择器 > 通用选择器（*）、子选择器（>）、相邻选择器（+）、同胞选择器（~）
+            权重：10000 > 1000 > 100 > 10 > 1 > 0    权重可累加
+         -->
+        <!-- <div class="childSelector">
+            <span
+                >Span 1. In the div.
+                <span>Span 2. In the span that's in the div.</span>
+            </span>
+        </div>
+        <span>Span 3. Not in a div at all</span> -->
+        <!-- <span>This is not red.</span>
+        <p>Here is a paragraph.</p>
+        <code>Here is some code.</code>
+        <span>And here is a span.</span>
+        <span>And here is a span.sdfasdf </span>
+        <span>And here is a span.sdfasddfsfsdf </span> -->
+
+        <ul>
+            <li>One</li>
+            <li>Two!</li>
+            <li>Three</li>
+            <li>Three</li>
+            <li>Three</li>
+            <li>Three</li>
+            <li>Three</li>
+        </ul>
+    </body>
+</html>
