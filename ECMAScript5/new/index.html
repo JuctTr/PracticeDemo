@@ -1,0 +1,43 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>new 关键字</title>
+    </head>
+    <body>
+        <script src="./index.js"></script>
+        <script>
+            console.log('================= 原生的 new 关键字效果 =================');
+            function nativeFunc(x, y) {
+                this.x = x;
+                this.y = y;
+                // return {
+                //     a: 1,
+                //     b: 2,
+                // };
+            }
+            const nativeNew = new nativeFunc(1, 2);
+            console.log('navtiveNew => ', nativeNew);
+            console.log('================= 自定义 new 关键字效果 =================');
+            function Func(x, y) {
+                this.x = x;
+                this.y = y;
+                // return {
+                //     a: 1,
+                //     b: 2,
+                // };
+            }
+            const a = newF(Func, 1, 2);
+            console.log(a);
+
+            function Func2(b) {
+                return b + 4;
+            }
+
+            const bbb = new Func2(2);
+
+            console.log(bbb);
+        </script>
+    </body>
+</html>
