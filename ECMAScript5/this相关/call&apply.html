@@ -1,0 +1,76 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>手写 call & apply</title>
+    </head>
+    <body>
+        <script>
+            Function.prototype.customCall = function (context) {
+                if (typeof this !== 'function') {
+                    throw new TypeError();
+                }
+                context = context || window;
+                context.fn = this;
+                // 取第一个参数后面的参数
+                var args = Array.prototype.slice.call(arguments, 1);
+                var result = context.fn(...args);
+                delete context.fn;
+                return result;
+            };
+
+            Function.prototype.customApply = function (context) {
+                if (typeof this !== 'function') {
+                    throw new TypeError();
+                }
+                context = context || window;
+                context.fn = this;
+                let result;
+                // 判断第二个参数是否存在，也就是context后面有没有一个数组
+                // 如果存在，则需要展开第二个参数
+                if (arguments[1]) {
+                    result = context.fn(...arguments[1]);
+                } else {
+                    result = context.fn();
+                }
+                delete context.fn;
+                return result;
+            };
+            // =================== 原生自带 Call =====================
+            // window.color = 'red';
+            // var o = { color: 'blue' };
+            // function sayColor(params) {
+            //     console.log('参数=>', params);
+            //     console.log(this.color);
+            // }
+            // sayColor.call(this, 'this'); //red
+            // sayColor.call(window, 'window'); //red
+            // sayColor.call();
+            // sayColor.call(null);
+            // sayColor.call(undefined);
+            // sayColor.call(o, 'blue'); //blue
+            // =================== 自定义 Call =====================
+            // window.color = 'red';
+            // var o = { color: 'blue' };
+            // function sayColor(params) {
+            //     console.log('参数=>', params);
+            //     console.log(this.color);
+            // }
+            // sayColor.customCall(this, ['this', 'this2']); //red
+            // sayColor.customCall(window, 'window'); //red
+            // sayColor.customCall();
+            // sayColor.customCall(null);
+            // sayColor.customCall(undefined);
+            // sayColor.customCall(o, 23232); //blue
+            //  =================== 原生自带 Call =====================
+            var a = [10, 2, 4, 15, 9];
+            console.log(Math.max.apply(Math, a)); // 15
+            console.log(Math.min.apply(null, a)); // 2
+            // =================== 自定义 Apply =====================
+            var a = [10, 2, 4, 15, 9];
+            console.log(Math.max.customApply(Math, a)); // 15
+            console.log(Math.min.customApply(null, a)); // 2
+        </script>
+    </body>
+</html>

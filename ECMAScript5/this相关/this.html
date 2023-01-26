@@ -1,0 +1,38 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 'use strict';
+            // window.name = 'ByteDance';
+            // function A() {
+            //     this.name = '123';
+            // }
+            // A.prototype.getA = function () {
+            //     console.log(this);
+            //     // return this.name;
+            // };
+            // const a = new A();
+
+            // const funcA = a.getA;
+            // funcA();
+            class A {
+                constructor() {
+                    this.name = '123';
+                }
+                getA() {
+                    console.log(this);
+                    // return this.name;
+                }
+            }
+            const a = new A();
+
+            const funcA = a.getA;
+            funcA();
+        </script>
+    </body>
+</html>

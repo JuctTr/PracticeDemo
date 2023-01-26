@@ -1,0 +1,88 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const obj = {
+                a: 1,
+                b: 2,
+                c: 3,
+            };
+            function func(name, age) {
+                this.sex = 'male';
+                console.log(this.a);
+                console.log(name);
+                console.log(age);
+            }
+            // console.log(func.prototype);
+            // // 绑定函数也可以使用 new 运算符构造，它会表现为目标函数已经被构建完毕了似的。提供的 this 值会被忽略，但前置参数仍会提供给模拟函数。
+            // const bindFn = func.bind(obj);
+            // console.log(bindFn('jucttr', 18));
+            // const newBindFunc = new bindFn('jucttr', 18);
+            // console.log(bindFn.prototype);
+            // console.log(newBindFunc.constructor);
+
+            Function.prototype.myBind = function (context) {
+                if (typeof this !== 'function') {
+                    throw new TypeError();
+                }
+                context = context || window;
+
+                const self = this;
+                // 将一个类似于数组的对象（array-like object）转换成一个真正的数组
+                // 并取第一个参数之后的参数
+                const exceptFirstArgs = Array.prototype.slice.call(arguments, 1);
+
+                function SimulationFn() {
+                    const currArgs = Array.prototype.slice.call(arguments);
+                    if (this instanceof SimulationFn) {
+                        return new self(...exceptFirstArgs, ...currArgs);
+                    }
+                    return self.apply(context, exceptFirstArgs.concat(currArgs));
+                }
+
+                return SimulationFn;
+            };
+            // const bindFunc = func.myBind(obj);
+            // const newFunc = new bindFunc('jucttr', 18);
+            // console.log(bindFunc.prototype);
+            // console.log(newFunc.constructor);
+
+            Function.prototype.bind2 = function (context) {
+                if (typeof this !== 'function') {
+                    throw new Error('Function.prototype.bind - what is trying to be bound is not callable');
+                }
+
+                var self = this;
+                var args = Array.prototype.slice.call(arguments, 1);
+
+                var fNOP = function () {};
+
+                var fBound = function () {
+                    var bindArgs = Array.prototype.slice.call(arguments);
+                    return self.apply(this instanceof fBound ? this : context, args.concat(bindArgs));
+                };
+
+                fNOP.prototype = this.prototype;
+                fBound.prototype = new fNOP();
+                return fBound;
+            };
+            function bar() {
+                console.log(this.a);
+            }
+            var func = bar.bind2(obj);
+            console.log(func.prototype);
+            var newFunc = new func();
+            console.log(bar.prototype);
+            console.log(newFunc.constructor);
+            var func2 = bar.bind(obj);
+            console.log(func2.prototype);
+            var newFunc = new func2();
+            console.log(newFunc.constructor);
+        </script>
+    </body>
+</html>

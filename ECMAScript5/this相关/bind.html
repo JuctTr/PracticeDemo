@@ -1,0 +1,68 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>bind的实现</title>
+    </head>
+    <body>
+        <script>
+            // 多次bind
+            const obj = {
+                a: 1,
+                b: 2,
+                c: 3,
+            };
+            const obj2 = {
+                a: 4,
+                b: 5,
+                c: 6,
+            };
+            const obj3 = {
+                a: 7,
+                b: 8,
+                c: 9,
+            };
+            function func(name, age) {
+                this.sex = 'male';
+                console.log(this.a);
+                console.log(name);
+                console.log(age);
+            }
+            // const bindFn = func.bind(obj).bind(obj2).bind(obj3);
+            // console.log(bindFn('jucttr', 18));
+            // MDN的实现方式
+            Function.prototype.myBind = function (context) {
+                if (typeof this !== 'function') {
+                    //bind函数不是被函数调用时，检测到this不是函数，此处直接抛出错误
+                    throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+                }
+
+                var aArgs = Array.prototype.slice.call(arguments, 1), //获取参数，从参数列表第一个开始获取，返回数组，获取除绑定的this之外的其他参数
+                    fToBind = this, //需要修改this的函数
+                    fNOP = function () {},
+                    fBound = function () {
+                        // this instanceof fBound === true时,说明返回的fBound被当做new的构造函数调用
+                        return fToBind.apply(
+                            this instanceof fBound ? this : context,
+                            // 获取调用时(fBound)的传参.bind 返回的函数入参往往是这么传递的，即将bind函数中的除第一个参数之外的其他参数追加到实际执行中
+                            aArgs.concat(Array.prototype.slice.call(arguments))
+                        );
+                    };
+
+                // 维护原型关系
+                if (this.prototype) {
+                    // 此处获取原函数的原型，返回fBound时作为fBound的原型，维护原有的原型链
+                    fNOP.prototype = this.prototype;
+                }
+                // 下行的代码使fBound.prototype是fNOP的实例,因此
+                // 返回的fBound若作为new的构造函数,new生成的新对象作为this传入fBound,新对象的__proto__就是fNOP的实例
+                fBound.prototype = new fNOP();
+
+                return fBound;
+            };
+            var myfunc = func.myBind(obj);
+            console.log(myfunc.prototype);
+        </script>
+    </body>
+</html>
