@@ -1,0 +1,70 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>迭代中途终止</title>
+    </head>
+    <body>
+        <script>
+            const arr = [1, 2, 3, 4, 5, 6];
+            // trycatch终止
+            try {
+                arr.forEach((item, index) => {
+                    if (item === 4) {
+                        throw new Error('终止循环');
+                    } else {
+                        console.log(item);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+
+            // some
+            arr.some(item => {
+                if (item === 4) {
+                    console.log('终止遍历');
+                    return true;
+                }
+                console.log(item);
+                return false;
+            });
+            // every
+            arr.every(item => {
+                if (item === 4) {
+                    console.log('终止遍历');
+                    return false;
+                }
+                console.log(item);
+                return true;
+            });
+            console.log('===========');
+            for (let key in arr) {
+                if (arr[key] === 3) {
+                    break;
+                } else {
+                    console.log(key);
+                }
+            }
+            console.log('===========');
+            for (let value of arr) {
+                if (value === 3) {
+                    break;
+                } else {
+                    console.log(value);
+                }
+            }
+            console.log('===========');
+
+            const findArr = arr.find(item => item === 3);
+            console.log(findArr);
+            console.log('===========');
+            const findIndexArr = arr.findIndex(item => item === 1);
+            console.log(findIndexArr);
+            console.log('===========');
+            const findIndexOfArr = arr.indexOf(4);
+            console.log(findIndexOfArr);
+        </script>
+    </body>
+</html>
