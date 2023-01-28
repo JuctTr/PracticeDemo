@@ -10,7 +10,7 @@ function throttle(func, wait, options) {
 
         timerId = setTimeout(() => {
             func.apply(lastThis, lastArgs);
-            timerId = null;
+            clearTimeout(timerId);
         }, wait);
     };
 }

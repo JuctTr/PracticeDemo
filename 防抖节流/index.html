@@ -19,11 +19,11 @@
     <body>
         <h1>防抖</h1>
         <div id="container"></div>
-        <!-- <script src="./myDebounce.js"></script> -->
-        <!-- <script src="./throttle.js"></script> -->
-        <script src="./lodash_debounce.js"></script>
         <h1>节流</h1>
         <button id="throttleButton">疯狂点击啊</button>
+        <script src="./index.js"></script>
+        <!-- <script src="./myDebounce.js"></script> -->
+        <!-- <script src="./myThrottle.js"></script> -->
         <script>
             var count = 1;
             var container = document.getElementById('container');
@@ -34,16 +34,15 @@
                 return '返回值';
             }
 
-            container.onmousemove = debounce(getUserAction, 1000, {
+            container.onmousemove = simpleDebounce(getUserAction, 1000, {
                 leading: true,
             });
 
             const handler = function () {
                 console.log('你点击我了。。。。。。。');
             };
-
             var throttleButton = document.getElementById('throttleButton');
-            throttleButton.addEventListener('click', throttle(handler, 3000));
+            throttleButton.addEventListener('click', simpleThrottle(handler, 1000));
         </script>
     </body>
 </html>
