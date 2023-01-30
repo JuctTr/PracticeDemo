@@ -1,0 +1,134 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>跨域问题</title>
+    </head>
+    <body>
+        <h1>跨域问题</h1>
+        访问链接：<a href="https://wqs.jd.com/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/index.html" rel="noopener noreferrer"
+            >把域名修改成 wqs.jd.com
+        </a>
+        <h2>JSONP</h2>
+        <script>
+            var MAIN_API_PRELOAD = function (res) {
+                if (res && res.retcode == 0) {
+                    MAIN_API_PRELOAD.resolveCache = res;
+                    MAIN_API_PRELOAD.resolves.forEach(function (resolve) {
+                        resolve(res);
+                    });
+                } else {
+                    MAIN_API_PRELOAD.rejectCache = res;
+                    MAIN_API_PRELOAD.rejects.forEach(function (reject) {
+                        reject(res);
+                    });
+                }
+                MAIN_API_PRELOAD.reset();
+            };
+            MAIN_API_PRELOAD.reset = function () {
+                MAIN_API_PRELOAD.resolves = [];
+                MAIN_API_PRELOAD.rejects = [];
+            };
+            MAIN_API_PRELOAD.regist = function (resolve, reject) {
+                if (MAIN_API_PRELOAD.resolveCache) {
+                    return resolve(MAIN_API_PRELOAD.resolveCache);
+                }
+                if (MAIN_API_PRELOAD.rejectCache) {
+                    return reject(MAIN_API_PRELOAD.rejectCache);
+                }
+                MAIN_API_PRELOAD.resolves.push(resolve);
+                MAIN_API_PRELOAD.rejects.push(reject);
+            };
+            MAIN_API_PRELOAD.onerror = function () {
+                MAIN_API_PRELOAD({ retcode: 999, errmsg: '网络错误' });
+            };
+            MAIN_API_PRELOAD.reset();
+            window.MAIN_API_PRELOAD = MAIN_API_PRELOAD;
+            // 动态加载
+            // const script = document.createElement('script');
+            // script.setAttribute('type', 'text/javascript');
+            // script.setAttribute('crossorigin', 'anonymous');
+            // script.src =
+            //     'https://wq.jd.com/pgcps/yjdf/QueryHotFloor?pagenum=1&pagesize=10&type=1&callback=MAIN_API_PRELOAD';
+            // document.body.appendChild(script);
+        </script>
+
+        <script
+            type="text/javascript"
+            src="https://wq.jd.com/pgcps/yjdf/QueryHotFloor?pagenum=1&pagesize=10&type=1&callback=MAIN_API_PRELOAD"
+            onerror="MAIN_API_PRELOAD.onerror()"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            const params = {
+                pagenum: 1,
+                pagesize: 10,
+                type: 1,
+                callback: 'MAIN_API_PRELOAD',
+            };
+            function queryMainData(params) {
+                return new Promise((resolve, reject) => {
+                    let promise;
+                    if (window.MAIN_API_PRELOAD && !window.MAIN_API_PRELOAD.used) {
+                        window.MAIN_API_PRELOAD.used = true;
+                        promise = new Promise((resolveFn, rejectFn) =>
+                            window.MAIN_API_PRELOAD.regist(resolveFn, rejectFn)
+                        );
+                    } else {
+                        promise = Promise.resolve('我是请求后台接口的');
+                    }
+                    promise
+                        .then(body => {
+                            console.log(body);
+                            resolve();
+                        })
+                        .catch(err => {
+                            console.error('catch => ', err);
+                            reject(err);
+                        });
+                });
+            }
+            queryMainData(params);
+        </script>
+        <h2>PostMessage</h2>
+        <iframe
+            id="childframe"
+            name="childframe"
+            src="http://localhost:5500/ECMAScript5/postMessage/iframeChild.html"
+            frameborder="1"
+            width="600"
+            height="600"
+        ></iframe>
+        <textarea id="message"></textarea>
+        <input type="button" value="发送" onclick="sendPost()" />
+        <script>
+            // 并取得返回的数据
+            function sendPost() {
+                // 获取id为otherPage的iframe窗口对象
+                var iframeWin = document.getElementById('childframe').contentWindow;
+                // 向该子窗口发送消息
+                /**
+                 *
+                 * postMessage()的第一个参数的最初实现始终是一个字符串。后来， 第一个参数改为允许任何结构的数据传入，不过并非所有浏览器都实现了这个改变。
+                 * 为此，最好就是只 通过 postMessage()发送 字符串 。如果需要传递结构化数据，
+                 * 那么最好先对该数据调用 JSON.stringify()，通过 postMessage()传过去之后，再在 onmessage 事件处理程序中调用 JSON.parse()
+                 *
+                 */
+                const data = document.getElementById('message').value;
+                iframeWin.postMessage(JSON.stringify(data), 'http://localhost:5500');
+            }
+            // 监听跨域请求的返回
+            window.addEventListener(
+                'message',
+                function (event) {
+                    console.log('=========== 我是来自子域的信息 ===========');
+                    console.log(event);
+                },
+                false
+            );
+        </script>
+        <h2>Nginx 方向代理</h2>
+        <h2>CORS （跨域资源共享）</h2>
+    </body>
+</html>

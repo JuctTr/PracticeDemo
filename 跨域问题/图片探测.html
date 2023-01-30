@@ -1,0 +1,18 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>图片探测</title>
+    </head>
+    <body>
+        <script>
+            let img = new Image();
+            img.onload = img.onerror = function () {
+                alert('Done!');
+            };
+            img.src =
+                'https://img10.360buyimg.com/img/jfs/t1/206080/22/18820/19010/61baa38cEf2cd0912/309b3b20a0a6b743.png';
+        </script>
+    </body>
+</html>

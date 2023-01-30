@@ -1,0 +1,46 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>图片 跨域</title>
+    </head>
+    <body>
+        <h1>demo</h1>
+        <img src="https://www.chromium.org/" />
+        <h1>直接请求</h1>
+        <img
+            src="https://img10.360buyimg.com/img/jfs/t1/206080/22/18820/19010/61baa38cEf2cd0912/309b3b20a0a6b743.png"
+            alt=""
+        />
+        <h1>Canvas</h1>
+        <script>
+            // 基础代码
+            const imgBox = document.createElement('img');
+            const img = new Image();
+
+            img.src =
+                'https://img10.360buyimg.com/img/jfs/t1/206080/22/18820/19010/61baa38cEf2cd0912/309b3b20a0a6b743.png' +
+                `?t=${new Date().getTime()}`;
+            img.crossOrigin = 'anonymous'; // 增加
+            img.setAttribute('crossOrigin', 'Anonymous');
+            img.onload = function () {
+                console.log('xxx load');
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                context.drawImage(img, 0, 0, img.width, img.height);
+
+                const url = canvas.toDataURL('image/png');
+                imgBox.src = url;
+                document.body.appendChild(imgBox);
+            };
+
+            img.onerror = function () {
+                console.log('xxx error');
+            };
+        </script>
+    </body>
+</html>
