@@ -32,7 +32,7 @@ function compose(middleware) {
     return function (context, next) {
         // last called middleware #
         let index = -1;
-        return dispatch(0);
+
         function dispatch(i) {
             if (i <= index) return Promise.reject(new Error('next() called multiple times'));
             index = i;
@@ -48,6 +48,8 @@ function compose(middleware) {
                 return Promise.reject(err);
             }
         }
+
+        return dispatch(0);
     };
 }
 
@@ -59,26 +61,27 @@ class App {
         this.middleware.push(cb);
     }
     compose(context) {
-        console.log('compose => ');
-        return compose(this.middleware)(context);
+        return compose(this.middleware)(context, async () => {
+            console.log('介于前序遍历和后序遍历之间');
+        });
     }
 }
 
 const app = new App();
 app.use(async (ctx, next) => {
-    console.log('前序遍历1', ctx);
+    console.log('前序遍历1', 'ctx => ', ctx);
     await next();
-    console.log('后续遍历1', ctx);
+    console.log('后续遍历1', 'ctx => ', ctx);
 });
 app.use(async (ctx, next) => {
-    console.log('前序遍历2', ctx);
+    console.log('前序遍历2', 'ctx => ', ctx);
     await next();
-    console.log('后续遍历2', ctx);
+    console.log('后续遍历2', 'ctx => ', ctx);
 });
 app.use(async (ctx, next) => {
-    console.log('前序遍历3', ctx);
+    console.log('前序遍历3', 'ctx => ', ctx);
     await next();
-    console.log('后续遍历3', ctx);
+    console.log('后续遍历3', 'ctx => ', ctx);
 });
 
 app.compose({ name: 'appName', demo() {} });
