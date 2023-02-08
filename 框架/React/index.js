@@ -20,21 +20,21 @@ function schedule() {
 const useState = initialState => {
     let hook; // 当前的hook
     if (isMount) {
-        // 首次渲染
+        // 组件初始化的首次渲染，初始化hook
         hook = {
             memoizedState: initialState,
             next: null,
-            // 多个更新，形成一个队列
+            // 多个更新（action ），形成一个队列
             queue: {
                 pending: null,
-                next: null,
             },
         };
-        // 首次进来还没有
+        // 首次渲染进来还没有 memoizedState
         if (!fiber.memoizedState) {
             fiber.memoizedState = hook;
         } else {
-            // 第二个useState、第三个useState、。。。。。
+            // 首次渲染除了第一个，后面第二个useState、第三个useState、。。。。。走这个流程，形成一条链表
+            // 这里workInProgressHook的指针，其实指向的是 fiber.memoizedState
             workInProgressHook.next = hook;
         }
         workInProgressHook = hook;
@@ -45,7 +45,9 @@ const useState = initialState => {
 
     // 计算新的状态
     let baseState = hook.memoizedState;
+
     if (hook.queue.pending) {
+        // 如果存在说明本次更新有新的 update 需要被操作
         let firstUpdate = hook.queue.pending.next;
         do {
             const action = firstUpdate.action;
@@ -61,22 +63,45 @@ const useState = initialState => {
 };
 
 function dispatchAction(queue, action) {
-    // 一个环状列表
+    // 为什么是一个环状列表呢？
     const update = {
         action,
         next: null,
     };
-    if (queue.pending === null) {
+    const pending = queue.pending;
+    // 第一次更新
+    if (pending === null) {
+        // u0.next => u0.next => u0.next => ......
         update.next = update;
     } else {
-        // u0 => u0
-        // u1 => u0 => u1
-        update.next = queue.pending.next;
-        queue.pending.next = update;
+        // 第二次更新
+        /**
+         * 这里跟源码的逻辑有区别
+         */
+        update.next = pending.next;
+        pending.next = update;
+        // 上述两行代码形成
+        // u1.next => u0.next => u1.next
+
+        // const update = {
+        //     action: (num) => num + 2,
+        //     next: {
+        //         action: (num) => num + 1,
+        //         next: {
+        //             action: (num) => num + 2,
+        //             next: {
+        //                 action: (num) => num + 1,
+        //                 next: {
+        //                     // ......
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
     queue.pending = update;
 
-    schedule();
+    setTimeout(schedule, 0);
 }
 
 function App() {
@@ -89,6 +114,12 @@ function App() {
     return {
         onClick: () => {
             updateNum(num => num + 1);
+            updateNum(num => num + 2);
+            updateNum(num => num + 3);
+            /**
+             * React18+，多次的action，会合并成一次schedule（多次的update，合并成一次render），
+             * 而up主代码中每一次update会有一次schedule
+             */
         },
     };
 }
