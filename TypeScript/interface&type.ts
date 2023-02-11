@@ -1,14 +1,8 @@
 type MyNumber = number;
+// 联合类型
 type StringOrNumber = string | number;
-type Point = [number, number];
-
-type User = {
-    name: string;
-};
-// 标识符“User”重复。ts(2300)
-// type User = {
-//     id: number;
-// };
+// 元组类型
+type TTuple = [number, number];
 
 // 交叉类型
 type Sister1 = {
