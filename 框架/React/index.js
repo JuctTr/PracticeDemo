@@ -77,6 +77,7 @@ function dispatchAction(queue, action) {
         // 第二次更新
         /**
          * 这里跟源码的逻辑有区别
+         * 作者表明：因为全程同步，每次update都被消耗了。 这里是照搬React的实现原理，在React中会有异步形成链表的过程
          */
         update.next = pending.next;
         pending.next = update;
@@ -106,7 +107,6 @@ function dispatchAction(queue, action) {
 
 function App() {
     const [num, updateNum] = useState(0);
-    const [num1, updateNum1] = useState(10);
 
     console.log('isMount?', isMount);
     console.log('num', num);
