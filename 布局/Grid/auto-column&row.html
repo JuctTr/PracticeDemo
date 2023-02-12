@@ -3,23 +3,66 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Grid justify&align&place-content</title>
+        <title>Grid auto-column&row</title>
         <link rel="stylesheet" href="./common.css" />
         <style>
-            #container {
+            #container1 {
                 display: grid;
                 grid-template-columns: 100px 100px 100px;
                 grid-template-rows: 100px 100px 100px;
-                grid-auto-rows: 50px;
+                grid-auto-rows: 150px;
                 border: 1px solid black;
+            }
+            #container1 .item-8 {
+                grid-column-start: 2;
+                grid-row-start: 4;
+            }
+            #container1 .item-9 {
+                grid-column-start: 3;
+                grid-row-start: 5;
+            }
+            #container2 {
+                display: grid;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                grid-auto-columns: 150px;
+                border: 1px solid black;
+            }
+            #container2 .item-1 {
+                grid-column-start: 4;
+                grid-row-start: 1;
+            }
+            #container2 .item-8 {
+                grid-column-start: 2;
+                grid-row-start: 3;
+            }
+            #container2 .item-9 {
+                grid-column-start: 3;
+                grid-row-start: 3;
             }
         </style>
     </head>
     <body>
         <div>
-            <h1>display: grid; grid-auto-rows: 50px;</h1>
+            <h1>display: grid; grid-auto-rows: 150px;</h1>
             <span>foo</span>
-            <div id="container">
+            <div id="container1">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </div>
+            <span>bar</span>
+        </div>
+        <div>
+            <h1>display: grid; grid-auto-columns: 150px;</h1>
+            <span>foo</span>
+            <div id="container2">
                 <div class="item item-1">1</div>
                 <div class="item item-2">2</div>
                 <div class="item item-3">3</div>

@@ -48,6 +48,7 @@
         <p>网格布局允许指定"区域"（area），一个区域由单个或多个单元格组成。grid-template-areas属性用于定义区域。</p>
         <div>
             <h1>display: grid; grid-template-areas: 'a b c' 'd e f' 'g h i';</h1>
+            <p>设置grid-area: e;看效果</p>
             <span>foo</span>
             <div id="container">
                 <div class="item item-1">1</div>
@@ -80,6 +81,7 @@
         </div>
         <div>
             <h1>grid-template-areas: 'a . c' 'd . f' 'g . i';</h1>
+            <p>如果某些区域不需要利用，则使用"点"（.）表示。</p>
             <span>foo</span>
             <div id="container3">
                 <div class="item item-1">1</div>
