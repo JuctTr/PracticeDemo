@@ -1,0 +1,100 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Flex布局</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 400px;
+                display: flex;
+                /* flex-direction: row; */
+                border: 1px solid black;
+                color: #fff;
+            }
+            .a {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                flex: 1;
+            }
+            .b {
+                width: 100px;
+                height: 100px;
+                background-color: green;
+                flex: 2;
+            }
+            .c {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+                flex: 1;
+            }
+            .d {
+                width: 200px;
+                flex-shrink: 2;
+                height: 100px;
+                background-color: red;
+            }
+            .e {
+                width: 200px;
+                flex-shrink: 1;
+                height: 100px;
+                background-color: green;
+            }
+            .f {
+                width: 200px;
+                flex-shrink: 1;
+                height: 100px;
+                background-color: blue;
+            }
+            .g {
+                width: 200px;
+                height: 100px;
+                background-color: red;
+                flex-basis: 100px;
+            }
+            .h {
+                width: 100px;
+                height: 100px;
+                background-color: green;
+            }
+            .i {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <p style="color: red">
+                flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+            </p>
+            <h1>flex-grow，width: 400px</h1>
+            <p>定义项目的放大比例</p>
+            <div class="container">
+                <div class="a">A盒子，默认width: 100px，而flex: 1</div>
+                <div class="b">B盒子，默认width: 100px，而flex: 2</div>
+                <div class="c">C盒子，默认width: 100px，而flex: 1</div>
+            </div>
+            <h1>flex-shrink，width: 400px</h1>
+            <p>shrink缩小的意思，定义一个item，当空间不足时，将被缩小</p>
+            <div class="container">
+                <div class="d">我的flex-shrink: 2;空间不足，我被缩小了</div>
+                <div class="e">B盒子，默认width: 200px</div>
+                <div class="f">C盒子，默认width: 200px</div>
+            </div>
+            <h1>flex-basis，width: 400px</h1>
+            <div class="container">
+                <div class="g">设置了一个flex项目的初始主尺寸</div>
+                <div class="h">B</div>
+                <div class="i">C</div>
+            </div>
+        </div>
+    </body>
+</html>
