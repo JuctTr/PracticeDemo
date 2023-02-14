@@ -41,7 +41,9 @@
         </div>
         <div class="box4"></div>
         <script>
-            console.log('============= 例子1 ============');
+            console.log(
+                '============= 例子1：测试两个setTimeout在 1000ms / 屏幕刷新率 内，修改body背景颜色============'
+            );
             // setTimeout(() => {
             //     requestAnimationFrame(() => {
             //         console.log('第一次渲染');
@@ -71,7 +73,7 @@
             // queueMicrotask(() => console.log('mic'));
 
             // 一道面试题
-            // console.log('============= 一道面试题 ============');
+            console.log('============= 一道面试题 ============');
             // console.log('script start');
             // setTimeout(function firstTimeOut() {
             //     console.log('A');
@@ -96,31 +98,31 @@
             //     console.log('first then');
             // });
             // console.log('script end');
-            console.log('============= 例子4 ============');
-            queueMicrotask(() => {
-                console.log('第一个微任务');
-                queueMicrotask(() => {
-                    console.log('第三个微任务');
-                    queueMicrotask(() => {
-                        console.log('第五个微任务');
-                    });
-                });
-                queueMicrotask(() => {
-                    console.log('第四个微任务');
-                });
-                setTimeout(() => {
-                    console.log('second setTimeout');
-                });
-            });
-            queueMicrotask(() => {
-                console.log('第二个微任务');
-            });
-            setTimeout(() => {
-                console.log('first setTimeout');
-            });
+            console.log('============= 例子4：嵌套微任务 ============');
+            // queueMicrotask(() => {
+            //     console.log('第一个微任务');
+            //     queueMicrotask(() => {
+            //         console.log('第三个微任务');
+            //         queueMicrotask(() => {
+            //             console.log('第五个微任务');
+            //         });
+            //     });
+            //     queueMicrotask(() => {
+            //         console.log('第四个微任务');
+            //     });
+            //     setTimeout(() => {
+            //         console.log('second setTimeout');
+            //     });
+            // });
+            // queueMicrotask(() => {
+            //     console.log('第二个微任务');
+            // });
+            // setTimeout(() => {
+            //     console.log('first setTimeout');
+            // });
             console.log('============= 例子5 ============');
             // requestAnimationFrame(function raf() {
-            //     console.log('[raf]');
+            //     console.log('[raf1]');
             // });
             // new Promise(resolve => {
             //     resolve();
@@ -139,6 +141,6 @@
             //     }, 100);
             // }, 0);
         </script>
-        <script src="./requestAnimationFrame.js"></script>
+        <!-- <script src="./requestAnimationFrame.js"></script> -->
     </body>
 </html>
