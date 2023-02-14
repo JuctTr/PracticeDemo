@@ -28,7 +28,7 @@ const souceObj = {
         /\d/,
         new Date(),
     ],
-    f: function fn() {},
+    f: function fn(p1, p2) {},
 };
 function clone(obj, deepClone) {
     if (obj === null) return null;
@@ -48,6 +48,9 @@ function clone(obj, deepClone) {
 const genNewObj = clone(souceObj, true);
 console.log(genNewObj);
 console.log(genNewObj.f === souceObj.f);
+console.log(genNewObj.a === souceObj.a);
+console.log(genNewObj.d === souceObj.d);
+console.log(genNewObj.r === souceObj.r);
 
 // let f = new Function('args', 'args2', "console.log('sdlfjsld')")
 // function anonymous(args, args2) {
@@ -58,3 +61,40 @@ console.log(genNewObj.f === souceObj.f);
 // function anonymous() {
 //     console.log('sdlfjsld');
 // }
+
+/**
+ * 克隆函数
+ * @param {*} func
+ * @returns
+ */
+function cloneFunction(func) {
+    const bodyReg = /(?<={)(.|\n)+(?=})/m;
+    const paramReg = /(?<=\().+(?=\)\s+{)/;
+    const funcString = func.toString();
+    console.log(funcString);
+    if (func.prototype) {
+        const param = paramReg.exec(funcString);
+        console.log('普通函数', param);
+        const body = bodyReg.exec(funcString);
+        if (body) {
+            console.log('匹配到函数体：', body[0]);
+            if (param) {
+                const paramArr = param[0].split(',');
+                console.log('匹配到参数：', paramArr);
+                return new Function(...paramArr, body[0]);
+            } else {
+                return new Function(body[0]);
+            }
+        } else {
+            return null;
+        }
+    } else {
+        return eval(funcString);
+    }
+}
+
+const fn = function (a, b) {
+    console.log(a, b);
+};
+
+console.log(cloneFunction(fn));

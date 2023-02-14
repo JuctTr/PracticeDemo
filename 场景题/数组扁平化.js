@@ -6,15 +6,10 @@ console.log(sourceArr.flat(Infinity)); // 更简单的方法
 
 // 二、使用 reduce方法
 function flatten(arr) {
-    return arr.reduce((prev, next) => {
-        let result = [];
+    return arr.reduce((prev, curr) => {
         // 如果是数组，递归处理
-        if (Array.isArray(next)) {
-            result = flatten(next);
-        } else {
-            result = next;
-        }
-        return prev.concat(result);
+        curr = Array.isArray(curr) ? flatten(curr) : curr;
+        return prev.concat(curr);
     }, []);
 }
 

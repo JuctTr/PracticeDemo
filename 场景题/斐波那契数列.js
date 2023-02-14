@@ -20,7 +20,7 @@ function fibonacci(n) {
     return result;
 }
 
-console.log(fibonacci(2));
+console.log(fibonacci(10));
 
 /**
  * @description 递归方式
