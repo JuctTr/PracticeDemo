@@ -1,0 +1,133 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>优化长任务</title>
+    </head>
+    <body>
+        <input type="text" name="文案" id="input" />
+        <script>
+            function validateForm() {
+                const now = performance.now();
+                while (performance.now() - now < 50) {}
+            }
+            function showSpinner() {
+                const now = performance.now();
+                while (performance.now() - now < 50) {}
+            }
+            function saveToDatabase() {
+                const now = performance.now();
+                while (performance.now() - now < 50) {}
+            }
+            function updateUI() {
+                const now = performance.now();
+                while (performance.now() - now < 50) {}
+            }
+            function sendAnalytics() {
+                const now = performance.now();
+                while (performance.now() - now < 50) {}
+            }
+
+            console.log('=================== 第一个例子：都在主线程 ===================');
+            // function saveSettings() {
+            //     validateForm();
+            //     showSpinner();
+            //     saveToDatabase();
+            //     updateUI();
+            //     sendAnalytics();
+            // }
+            console.log('=================== 第二个例子：利用 setTimeout ===================');
+
+            // function saveSettings() {
+            //     validateForm();
+            //     showSpinner();
+            //     setTimeout(() => {
+            //         saveToDatabase();
+            //         updateUI();
+            //         sendAnalytics();
+            //     });
+            // }
+
+            console.log('=================== 第三个例子： ===================');
+
+            function yieldToMain() {
+                return new Promise(resolve => {
+                    setTimeout(resolve, 0);
+                });
+            }
+
+            // async function saveSettings() {
+            //     // Create an array of functions to run:
+            //     const tasks = [validateForm, showSpinner, saveToDatabase, updateUI, sendAnalytics];
+
+            //     // Loop over the tasks:
+            //     while (tasks.length > 0) {
+            //         // Shift the first task off the tasks array:
+            //         const task = tasks.shift();
+
+            //         // Run the task:
+            //         task();
+
+            //         // Yield to the main thread:
+            //         await yieldToMain();
+            //     }
+            // }
+
+            console.log('=================== 第四个例子：使用isInputPending() ===================');
+
+            // async function saveSettings() {
+            //     // A task queue of functions
+            //     const tasks = [validateForm, showSpinner, saveToDatabase, updateUI, sendAnalytics];
+
+            //     while (tasks.length > 0) {
+            //         // Yield to a pending user input:
+            //         // console.log(navigator.scheduling);
+            //         if (navigator.scheduling.isInputPending()) {
+            //             // There's a pending user input. Yield here:
+            //             console.log(navigator.scheduling);
+            //             await yieldToMain();
+            //         } else {
+            //             // Shift the task out of the queue:
+            //             const task = tasks.shift();
+
+            //             // Run the task:
+            //             task();
+            //         }
+            //     }
+            // }
+            console.log('=================== 第五个例子：结合 performance.now() 做降级方案 ===================');
+
+            async function saveSettings() {
+                // A task queue of functions
+                const tasks = [validateForm, showSpinner, saveToDatabase, updateUI, sendAnalytics];
+
+                let deadline = performance.now() + 50;
+
+                while (tasks.length > 0) {
+                    // Optional chaining operator used here helps to avoid
+                    // errors in browsers that don't support `isInputPending`:
+                    if (navigator.scheduling?.isInputPending() || performance.now() >= deadline) {
+                        // There's a pending user input, or the
+                        // deadline has been reached. Yield here:
+                        await yieldToMain();
+
+                        // Extend the deadline:
+                        deadline = performance.now() + 50;
+
+                        // Stop the execution of the current loop and
+                        // move onto the next iteration:
+                        continue;
+                    }
+
+                    // Shift the task out of the queue:
+                    const task = tasks.shift();
+
+                    // Run the task:
+                    task();
+                }
+            }
+            saveSettings();
+        </script>
+    </body>
+</html>
