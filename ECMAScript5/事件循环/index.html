@@ -1,0 +1,40 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>事件循环</title>
+    </head>
+    <body>
+        <script>
+            async function async1() {
+                console.log('async1 start'); // 1
+                await async2();
+                console.log('async1 end'); // 8 !!!
+            }
+            async function async2() {
+                console.log('async2 start'); // 2
+                await async3();
+                console.log('async2 end'); // 6 !!!
+            }
+            async function async3() {
+                console.log('async3 start'); // 3
+            }
+
+            setTimeout(() => {
+                console.log('setTimeout'); // 9
+            }, 0);
+
+            async1();
+
+            new Promise(function (resolve) {
+                console.log('promise executor'); // 4
+                resolve();
+            }).then(() => {
+                console.log('promise then'); // 7 !!!
+            });
+
+            console.log('end'); // 5
+        </script>
+    </body>
+</html>
