@@ -6,18 +6,36 @@
         <title>Document</title>
         <script src="./eval.js"></script>
         <script src="./with.js"></script>
+        <script src="./closure.js"></script>
     </head>
     <body>
         <script>
+            const d = 1;
+            let e = 2;
+            var f = 3;
+            // debugger; // ================ 全局作用域 ================
             function foo() {
                 getName = function () {
                     console.log('getName');
                 };
                 a = 'var';
+                // debugger; // ================ local 作用域 （函数作用域） ================
             }
             foo();
             console.log(window.getName());
             console.log(window.a);
+            {
+                const b = 2;
+                // debugger; // ================ block作用域（块级作用域）================
+            }
+
+            try {
+                let c = 3;
+                throw new Error('catch block 作用域');
+            } catch (error) {
+                // debugger;
+                // ================  catch block 作用域 ================
+            }
         </script>
     </body>
 </html>

@@ -7,8 +7,10 @@
 // var name = 'global';
 // var str = 'var name = "part"';
 // showName(str);
-// let result = eval('let x = 10, y = 11; console.log(this); x + y; ');
+
+// let result = eval('let x = 10, y = 11; console.log(this); x + y; debugger;'); // eval 作用域
 // console.log(result); // 21
+
 // function doSomething() {
 //     eval('var x = 10');
 //     console.log(x);

@@ -1,4 +1,5 @@
 with (location) {
+    // with block 作用域
     let qs = search.substring(1);
     let hostName = hostname;
     let url = href;
