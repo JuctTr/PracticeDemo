@@ -6,6 +6,11 @@
         <title>Document</title>
     </head>
     <body>
+        <script>
+            function inputReadonly(e) {
+                console.log('我被绑定了');
+            }
+        </script>
         <form id="formList">
             <ul>
                 <h1>文案相关</h1>
@@ -23,6 +28,8 @@
                 </li>
                 <li>
                     输入电话号码：<input
+                        id="phone"
+                        onclick="inputReadonly()"
                         id="tel"
                         type="tel"
                         placeholder="请输入电话号码（被开启禁用了）"
@@ -30,9 +37,19 @@
                         disabled
                     />
                 </li>
-                <li>输入 URL：<input id="url" type="url" placeholder="请输入URL" autofocus autocomplete="on" /></li>
+                <li>
+                    输入 URL：<input
+                        id="url"
+                        onclick="inputReadonly()"
+                        type="url"
+                        placeholder="请输入URL"
+                        autofocus
+                        autocomplete="on"
+                    />
+                </li>
                 <li>
                     输入密码（只读不能被修改）：<input
+                        onclick="inputReadonly()"
                         id="password"
                         type="password"
                         placeholder="请输入密码（自动聚焦）"
