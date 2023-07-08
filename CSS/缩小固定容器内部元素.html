@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 300px;
+            height: 150px;
+            position: relative;
+        }
+        .app {
+            width: 300px;
+            height: 150px;
+            background-color: #d27878;
+            display: flex;
+            transition: height 1s ease-in-out, width 1s ease-in-out;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            padding: 1vw;
+            box-sizing: border-box;
+        }
+        .img {
+            /* max-width: 46.66%;
+            max-height: 100%;
+            min-width: 40px;
+            min-height: 40px; */
+            width: 140px;
+            height: 140px;
+            background-color: antiquewhite;
+            transition: height 1s ease-in-out, width 1s ease-in-out;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .img-src {
+            width: 100%;
+            height: 100%;
+        }
+        .info {
+            position: relative;
+            margin-left: 150px;
+            opacity: 1;
+            transition: margin-left 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        .price {
+            font-size: 20px;
+            color: #fff;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .zoom-out {
+            animation: zoomOut 1s ease-in-out forwards;
+        }
+        .margin-left-to-zero {
+            animation: marginLeftToZero 1s ease-in-out forwards;
+        }
+        @keyframes zoomOut {
+            to {
+                width: 48px;
+                height: 48px;
+            }
+        }
+        @keyframes marginLeftToZero {
+            to {
+                margin-left: 0;
+                opacity: 0;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app">
+            <div class="info">
+                <div class="name">aldjflsjlkfjsldjflasj</div>
+                <div class="tag">sjflsjdlfsjljs</div>
+                <div class="price">$18.99</div>
+            </div>
+            <div class="img">
+                <img class="img-src" src="https://img10.360buyimg.com/img/jfs/t1/206080/22/18820/19010/61baa38cEf2cd0912/309b3b20a0a6b743.png" alt="">
+            </div>
+        </div>
+    </div>
+    <button class="button">点击动画</button>
+    <script>
+        let btn = document.querySelector('.button');
+        let app = document.querySelector('.app');
+        let img = document.querySelector('.img');
+        let info = document.querySelector('.info');
+        btn.addEventListener('click', function () {
+            if (app.classList.contains('zoom-out')) {
+                app.classList.remove('zoom-out');
+                img.classList.remove('zoom-out');
+                info.classList.remove('margin-left-to-zero');
+                return;
+            }
+            app.classList.add('zoom-out');
+            img.classList.add('zoom-out');
+            info.classList.add('margin-left-to-zero');
+        });
+    </script>
+</body>
+</html>
