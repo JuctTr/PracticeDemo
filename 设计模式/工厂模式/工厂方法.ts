@@ -33,7 +33,7 @@ class BMW840Factory implements BMWFactory {
 }
 
 // 如新增一个产品
-class BMW850Factory extends BMWFactory {
+class BMW850Factory implements BMWFactory {
     produceBMW(): BMW {
         // return new BMW850();
     }
