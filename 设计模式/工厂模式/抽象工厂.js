@@ -1,27 +1,4 @@
-class MobilePhoneFactory {
-    // 提供操作系统的接口
-    createOS() {
-        throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！');
-    }
-    // 提供硬件的接口
-    createHardWare() {
-        throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！');
-    }
-}
-
-// 具体工厂继承自抽象工厂
-class FakeStarFactory extends MobilePhoneFactory {
-    createOS() {
-        // 提供安卓系统实例
-        return new AndroidOS();
-    }
-    createHardWare() {
-        // 提供高通硬件实例
-        return new QualcommHardWare();
-    }
-}
-
-// 定义操作系统这类产品的抽象产品类
+// 定义操作系统这类产品的“抽象”产品类
 class OS {
     controlHardWare() {
         throw new Error('抽象产品方法不允许直接调用，你需要将我重写！');
@@ -63,3 +40,26 @@ class MiWare extends HardWare {
     }
 }
 // ...
+
+class MobilePhoneFactory {
+    // 提供操作系统的接口
+    createOS() {
+        throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！');
+    }
+    // 提供硬件的接口
+    createHardWare() {
+        throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！');
+    }
+}
+
+// 具体工厂继承自抽象工厂
+class FakeStarFactory extends MobilePhoneFactory {
+    createOS() {
+        // 提供安卓系统实例
+        return new AndroidOS();
+    }
+    createHardWare() {
+        // 提供高通硬件实例
+        return new QualcommHardWare();
+    }
+}
