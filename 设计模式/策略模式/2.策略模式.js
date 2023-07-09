@@ -12,7 +12,9 @@
 // };
 // calculateBonus('B', 20000); // 输出:40000
 // calculateBonus('S', 6000); // 输出:24000
+
 // =============================== 使用组合函数重构代码 ===============================
+
 // var performanceS = function (salary) {
 //     return salary * 4;
 // };
@@ -35,16 +37,18 @@
 // };
 
 // calculateBonus('A', 10000); // 输出:30000
+
 // =============================== 使用策略模式重构代码 ===============================
-var performanceS = function () {};
+
+var performanceS = function () { };
 performanceS.prototype.calculate = function (salary) {
     return salary * 4;
 };
-var performanceA = function () {};
+var performanceA = function () { };
 performanceA.prototype.calculate = function (salary) {
     return salary * 3;
 };
-var performanceB = function () {};
+var performanceB = function () { };
 performanceB.prototype.calculate = function (salary) {
     return salary * 2;
 };
@@ -70,7 +74,9 @@ var bonus = new Bonus();
 2;
 bonus.setSalary(10000);
 bonus.setStrategy(new performanceS()); // 设置策略对象
-console.log(bonus.getBonus()); // 输出:40000 bonus.setStrategy( new performanceA() ); // 设置策略对象
+console.log(bonus.getBonus()); // 输出:40000 
+
+bonus.setStrategy(new performanceA()); // 设置策略对象
 console.log(bonus.getBonus()); // 输出:30000
 
 // =============================== JavaScript 版本的策略模式 ===============================
