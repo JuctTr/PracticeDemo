@@ -1,3 +1,4 @@
+/***********************策略对象**************************/
 // 把校验逻辑封装成策略对象
 var strategies = {
     isNonEmpty: function (value, errorMsg) {
@@ -20,6 +21,7 @@ var strategies = {
     },
 };
 
+/***********************Validator 类**************************/
 // Validator 类在这里作为context，负责接收用户的请求并委托给strategy对象
 var Validator = function () {
     this.cache = []; // 保存校验规则
@@ -39,7 +41,7 @@ Validator.prototype.add = function (dom, rule, errorMsg) {
 
 // 启动检验
 Validator.prototype.start = function () {
-    for (var i = 0, validatorFunc; (validatorFunc = this.cache[i++]); ) {
+    for (var i = 0, validatorFunc; (validatorFunc = this.cache[i++]);) {
         var msg = validatorFunc(); // 开始校验，并取得校验后的返回信息
         if (msg) {
             // 如果有确切的返回值，说明校验没有通过
@@ -70,3 +72,8 @@ registerForm.onsubmit = function () {
         return false; // 阻止表单提交
     }
 };
+
+/**
+ * 使用策略模式重构代码之后，我们仅仅通过“配置”的方式就可以完成一个表单的校验， 
+ * 这些校验规则也可以复用在程序的任何地方，还能作为插件的形式，方便地被移植到其他项目中
+ */

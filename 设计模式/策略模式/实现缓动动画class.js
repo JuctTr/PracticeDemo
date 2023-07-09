@@ -26,13 +26,13 @@ var tween = {
 
 class Animate {
     constructor(dom) {
-        this.dom = dom; // 进行运动的dom 节点
-        this.startTime = 0; // 动画开始时间
-        this.startPos = 0; // 动画开始时，dom 节点的位置，即dom 的初始位置
-        this.endPos = 0; // 动画结束时，dom 节点的位置，即dom 的目标位置
-        this.propertyName = null; // dom 节点需要被改变的css 属性名
-        this.easing = null; // 缓动算法
-        this.duration = null; // 动画持续时间
+        this.dom = dom;             // 进行运动的 dom 节点
+        this.startTime = 0;         // 动画开始时间
+        this.startPos = 0;          // 动画开始时，dom 节点的位置，即 dom 的初始位置
+        this.endPos = 0;            // 动画结束时，dom 节点的位置，即 dom 的目标位置
+        this.propertyName = null;   // dom 节点需要被改变的 css 属性名
+        this.easing = null;         // 缓动算法
+        this.duration = null;       // 动画持续时间
     }
 
     start(propertyName, endPos, duration, easing) {
@@ -54,8 +54,7 @@ class Animate {
 
     step() {
         var t = +new Date(); // 取得当前时间
-        if (t >= this.startTime + this.duration) {
-            // (1)
+        if (t >= this.startTime + this.duration) { // (1)
             this.update(this.endPos); // 更新小球的CSS 属性值
             return false;
         }

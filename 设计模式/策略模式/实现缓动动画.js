@@ -1,6 +1,11 @@
+/*
+ * 缓动算法
+ * 4个参数的含义：
+ * 动画已消耗的时间、小球原始位置、小球目标位置、动画持续的总时间
+ */
 var tween = {
     linear: function (t, b, c, d) {
-        return c * t / d + b;
+        return (c * t) / d + b;
     },
     easeIn: function (t, b, c, d) {
         return c * (t /= d) * t + b;
@@ -16,10 +21,10 @@ var tween = {
     },
     sineaseOut: function (t, b, c, d) {
         return c * ((t = t / d - 1) * t * t + 1) + b;
-    }
+    },
 };
 
-
+// 接收一个参数，即将运动起来的dom节点
 var Animate = function (dom) {
     this.dom = dom;             // 进行运动的 dom 节点
     this.startTime = 0;         // 动画开始时间
@@ -30,6 +35,12 @@ var Animate = function (dom) {
     this.duration = null;       // 动画持续时间
 };
 
+/*
+ * 负责启动这个动画，在动画被启动的瞬间要记录一些信息，
+ * 供缓动算法在以后计算小球当前位置的时候使用。
+ * 此外，还要负责启动定时器
+ * 4个参数：要改变的CSS属性名、小球运动的目标位置、动画持续时间、缓动算法
+ */
 Animate.prototype.start = function (propertyName, endPos, duration, easing) {
     this.startTime = +new Date; // 动画启动时间
     this.startPos = this.dom.getBoundingClientRect()[propertyName]; // dom 节点初始位置 
@@ -45,7 +56,11 @@ Animate.prototype.start = function (propertyName, endPos, duration, easing) {
     }, 19);
 };
 
-
+/*
+ * 该方法代表小球运动的每一帧要做的事情
+ * 此外，还要负责计算小球的当前位置
+ * 调用更新CSS属性值的方法Animate.prototype.update
+ */
 Animate.prototype.step = function () {
     var t = +new Date; // 取得当前时间
     if (t >= this.startTime + this.duration) { // (1)
@@ -56,7 +71,7 @@ Animate.prototype.step = function () {
     this.update(pos); // 更新小球的 CSS 属性值 
 };
 
-
+// 负责更新小球的CSS属性
 Animate.prototype.update = function (pos) {
     this.dom.style[this.propertyName] = pos + 'px';
 };
