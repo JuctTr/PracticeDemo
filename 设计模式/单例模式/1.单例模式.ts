@@ -27,9 +27,9 @@ class Singleton {
 const a = Singleton.getInstance('sven1');
 const b = Singleton.getInstance('sven2');
 
-console.log(a === b);
+console.log(a === b); // true
 
-// =============================== 或者 ===============================
+// =============================== ES5的写法 ===============================
 
 // var Singleton2 = function (name) {
 //     this.name = name;
@@ -55,25 +55,26 @@ console.log(a === b);
 /**
  * 透明的单例模式
  */
-// class CreateDiv {
-//     html: string;
-//     static instance: CreateDiv | null;
-//     constructor(html: string) {
-//         if (CreateDiv.instance) {
-//             return CreateDiv.instance;
-//         }
-//         this.html = html;
-//         this.init();
-//         return (CreateDiv.instance = this);
-//     }
+class CreateDiv {
+    html: string;
+    static instance: CreateDiv | null;
+    constructor(html: string) {
+        if (CreateDiv.instance) {
+            return CreateDiv.instance;
+        }
+        this.html = html;
+        this.init();
+        return (CreateDiv.instance = this);
+    }
 
-//     init() {
-//         // const div: HTMLDivElement = document.createElement('div');
-//         // div.innerHTML = this.html;
-//         // document.body.appendChild(div);
-//     }
-// }
+    init() {
+        const div: HTMLDivElement = document.createElement('div');
+        div.innerHTML = this.html;
+        document.body.appendChild(div);
+    }
+}
 
+// =============================== ES5的写法 ===============================
 // const CreateDiv = (function () {
 //     let instance;
 //     const CreateDiv = function (html) {
@@ -92,39 +93,39 @@ console.log(a === b);
 //     return CreateDiv;
 // })();
 
-// const c = new CreateDiv('foo');
-// const d = new CreateDiv('bar');
-// console.log(c === d); // true
+const c = new CreateDiv('foo');
+const d = new CreateDiv('bar');
+console.log(c === d); // true
 
 /**
  * =============================== 用代理实现单例模式 ===============================
  */
-// const CreateDiv = function (html) {
-//     this.html = html;
-//     this.init();
-// };
+const CreateDiv = function (html) {
+    this.html = html;
+    this.init();
+};
 
-// CreateDiv.prototype.init = function () {
-//     var div = document.createElement('div');
-//     div.innerHTML = this.html;
-//     document.body.appendChild(div);
-// };
+CreateDiv.prototype.init = function () {
+    var div = document.createElement('div');
+    div.innerHTML = this.html;
+    document.body.appendChild(div);
+};
 
-// const ProxySingletonCreateDiv = (function () {
-//     let instance;
-//     return function (html) {
-//         if (!instance) {
-//             // 代理给 CreateDiv
-//             instance = new CreateDiv(html);
-//         }
-//         return instance;
-//     };
-// })();
+const ProxySingletonCreateDiv = (function () {
+    let instance;
+    return function (html) {
+        if (!instance) {
+            // 代理给 CreateDiv
+            instance = new CreateDiv(html);
+        }
+        return instance;
+    };
+})();
 
-// const e = new ProxySingletonCreateDiv('foo');
-// const f = new ProxySingletonCreateDiv('bar');
+const e = new ProxySingletonCreateDiv('foo');
+const f = new ProxySingletonCreateDiv('bar');
 
-// console.log(e === f);
+console.log(e === f);
 
 /**
  * =============================== 通用的惰性单例 ===============================
@@ -149,3 +150,5 @@ document.getElementById('loginBtn').onclick = function () {
     var loginLayer = createSingleLoginLayer();
     loginLayer.style.display = 'block';
 };
+
+// 应用场景： Redux、Vuex 等状态管理工具，还有我们常用的 window 对象、全局缓存等。
