@@ -1,17 +1,22 @@
-function addAge(number) {
-    return function (target) {
-        console.log(target);
-        target.prototype.age = number;
+// 具体的参数意义，在下个小节，这里大家先感知一下操作
+function funcDecorator(target, name, descriptor) {
+    console.dir(target);
+    console.log(target, name, descriptor);
+    let originalMethod = descriptor.value;
+    descriptor.value = function () {
+        console.log('我是Func的装饰器逻辑');
+        return originalMethod.apply(this, arguments);
     };
+    return descriptor;
 }
 
-@addAge(18)
-class Person {
-    constructor(name) {
-        this.name = name;
+class Button {
+    @funcDecorator
+    onClick() {
+        console.log('我是Func的原有逻辑');
     }
 }
 
-const person = new Person('leo');
-console.log(person.name); // leo
-console.log(person.age); // 18
+// 验证装饰器是否生效
+const button = new Button();
+button.onClick();

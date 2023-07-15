@@ -15,15 +15,18 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var TITLECOUNT = 0;
 console.log("<!-------------------------------- \u7B2C".concat(++TITLECOUNT, "\u4E2A\u4F8B\u5B50 -------------------------------->"));
-// @testable
-// class MyTestableClass {
-//     static isTestable: any; // 静态属性isTestable
-//     // ...
-// }
-// function testable(target: { isTestable: boolean }) {
-//     target.isTestable = true; // 静态属性isTestable
-// }
-// console.log(MyTestableClass.isTestable); // true
+var MyTestableClass = /** @class */ (function () {
+    function MyTestableClass() {
+    }
+    MyTestableClass = __decorate([
+        testable
+    ], MyTestableClass);
+    return MyTestableClass;
+}());
+function testable(target) {
+    target.isTestable = true; // 静态属性isTestable
+}
+console.log(MyTestableClass.isTestable); // true
 console.log("<!-------------------------------- \u7B2C".concat(++TITLECOUNT, "\u4E2A\u4F8B\u5B50 -------------------------------->"));
 // @decorator
 // class A {}
@@ -36,17 +39,29 @@ console.log("<!-------------------------------- \u7B2C".concat(++TITLECOUNT, "\u
  * @param isTestable
  * @returns
  */
-// function testable(isTestable: boolean) {
-//     return function (target: { isTestable: boolean }) {
-//         target.isTestable = isTestable;
-//     };
-// }
-// @testable(true)
-// class MyTestableClass {}
-// MyTestableClass.isTestable; // true
-// @testable(false)
-// class MyClass {}
-// MyClass.isTestable; // false
+function testable(isTestable) {
+    return function (target) {
+        target.isTestable = isTestable;
+    };
+}
+var MyTestableClass = /** @class */ (function () {
+    function MyTestableClass() {
+    }
+    MyTestableClass = __decorate([
+        testable(true)
+    ], MyTestableClass);
+    return MyTestableClass;
+}());
+MyTestableClass.isTestable; // true
+var MyClass = /** @class */ (function () {
+    function MyClass() {
+    }
+    MyClass = __decorate([
+        testable(false)
+    ], MyClass);
+    return MyClass;
+}());
+MyClass.isTestable; // false
 console.log("<!-------------------------------- \u7B2C".concat(++TITLECOUNT, "\u4E2A\u4F8B\u5B50 -------------------------------->"));
 // mixins.js
 function mixins() {
@@ -55,7 +70,7 @@ function mixins() {
         list[_i] = arguments[_i];
     }
     return function (target) {
-        console.dir(target);
+        console.log(target);
         Object.assign.apply(Object, __spreadArray([target.prototype], list, false));
     };
 }
