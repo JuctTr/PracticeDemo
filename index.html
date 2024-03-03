@@ -1,0 +1,230 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            window._PFM_TIMING = [[new Date()]];
+        </script>
+    </head>
+    <body>
+        <button onclick="func()">点击防抖</button>
+        <button onclick="func1()">点击节流</button>
+        <a id="cancelDefault" href="https://www.baidu.com">阻止默认行为</a>
+        <script>
+            const a = document.querySelector('#cancelDefault');
+            console.log(a);
+            document.addEventListener('click', e => {
+                e.preventDefault();
+            });
+            // Promise.all([Promise.reject('第一个错误1'), Promise.resolve('第一个错误2'), Promise.reject('第一个错误3')])
+            //     .then(res => {
+            //         console.log(res);
+            //     })
+            //     .catch(e => {
+            //         console.log(e);
+            //     });
+            // Promise.allSettled([
+            //     Promise.resolve('第一个错误1'),
+            //     Promise.resolve('第一个错误2'),
+            //     Promise.reject('第一个错误3'),
+            // ])
+            //     .then(res => {
+            //         console.log('then', res);
+            //     })
+            //     .catch(e => {
+            //         console.log('catch', e);
+            //     });
+            // const arr = (9876653 + '').split('');
+            // const len = arr.length;
+            // let result = [];
+
+            // for (let i = len - 1; i > 0; i--) {
+            //     if (result.indexOf(arr[i]) == -1) {
+            //         result.push(arr[i]);
+            //     }
+            // }
+
+            // console.log(+result.join(''));
+
+            // const sourceArr = 'cap to cat card two too up boat boot'.split(' ');
+            // console.log(sourceArr);
+            // console.log(sourceArr.sort());
+
+            // const str = '1,0,0,0,1,0,0,0,0,1,0,1';
+            // const arr = str.split(',').join('').split('1');
+            // let maxLen = 0;
+            // arr.forEach((item, index) => {
+            //     const len = item.length;
+            //     if (len <= 0) return;
+            //     if (len <= 2) maxLen = Math.max(maxLen, 1);
+            //     const num = Math.floor(len / 2);
+            //     // 奇偶数
+            //     if (len % 2 == 0) {
+            //         maxLen = Math.max(num, maxLen);
+            //     } else {
+            //         maxLen = Math.max(num + 1, maxLen);
+            //     }
+            //     // 考虑字符串左右边界没有 1 的情况
+            //     if ((index === 0 || index === arr.length - 1) && item != '') {
+            //         maxLen = Math.max(len, maxLen);
+            //     }
+            // });
+            // console.log(maxLen);
+            // console.log(window);
+            // var name = 'World!';
+            // (function () {
+            //     if (typeof name === 'undefined') {
+            //         var name = 'Jack';
+            //         console.log('Goodbye ' + name);
+            //     } else {
+            //         console.log('Hello ' + name);
+            //     }
+            // })();
+
+            // const sourceArr = [2, 3, 9, 1, 5, 6];
+            // let maxValue = 0;
+            // const arr = sourceArr.reverse();
+            // for (let i = 0; i < arr.length; i++) {
+            //     for (let j = i + 1; j < arr.length; j++) {
+            //         const diff = arr[i] - arr[j];
+            //         if (diff > maxValue) maxValue = diff;
+            //     }
+            // }
+            // console.log(maxValue);
+
+            // var maximumDifference = function (nums) {
+            //     const n = nums.length;
+            //     let ans = -1,
+            //         premin = nums[0];
+            //     for (let i = 1; i < n; ++i) {
+            //         if (nums[i] > premin) {
+            //             ans = Math.max(ans, nums[i] - premin);
+            //         } else {
+            //             premin = nums[i];
+            //         }
+            //     }
+            //     return ans;
+            // };
+            // console.log(maximumDifference(sourceArr));
+            //数字转换中文大写
+            // function toChinese(n) {
+            //     if (n === 0) return '零';
+            //     if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n)) return '';
+            //     var unit = '仟佰拾亿仟佰拾万仟佰拾元角分',
+            //         str = '';
+            //     n += '00';
+            //     var p = n.indexOf('.');
+            //     if (p >= 0) n = n.substring(0, p) + n.substr(p + 1, 2);
+            //     unit = unit.substr(unit.length - n.length);
+            //     for (var i = 0; i < n.length; i++) str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+            //     return str
+            //         .replace(/零(仟|佰|拾|角)/g, '零')
+            //         .replace(/(零)+/g, '零')
+            //         .replace(/零(万|亿|元)/g, '$1')
+            //         .replace(/(亿)万/g, '$1$2')
+            //         .replace(/^元零?|零分/g, '')
+            //         .replace(/元$/g, '元整');
+            // }
+            // console.log(toChinese(2322));
+            function debounce(fn, wait, options = {}) {
+                let timer = null;
+
+                const leading = options.leading || null;
+                let needLeadingCall = false;
+
+                let result = null;
+
+                return function (...args) {
+                    const that = this;
+
+                    if (timer) clearTimeout(timer);
+
+                    if (leading && !needLeadingCall) {
+                        result = fn.apply(that, args);
+                        needLeadingCall = true;
+                    }
+
+                    timer = setTimeout(() => {
+                        result = fn.apply(that, args);
+                        needLeadingCall = false;
+                    }, wait);
+                    return result;
+                };
+            }
+            const func = debounce(
+                () => {
+                    console.log('防抖');
+                },
+                1000,
+                {
+                    leading: true,
+                }
+            );
+
+            function throttle(fn, wait, options = {}) {
+                let leading = true;
+                let trailing = true;
+                let previousTime = 0;
+                const thisArgs = this;
+                let context = null;
+                let result = null;
+
+                let timer = null;
+
+                leading = 'leading' in options ? !!options.leading : leading;
+                trailing = 'trailing' in options ? !!options.trailing : trailing;
+
+                const callOnce = () => {
+                    previousTime = Date.now();
+                    result = fn.apply(thisArgs, context);
+                    timer = null;
+                };
+
+                return function (...args) {
+                    let nowTime = Date.now();
+
+                    if (leading === false && previousTime === 0) previousTime = nowTime;
+
+                    let remaining = wait - (nowTime - previousTime);
+                    context = args;
+                    if (remaining <= 0 || remaining > wait) {
+                        if (timer) {
+                            clearTimeout(timer);
+                            timer = null;
+                        }
+
+                        previousTime = nowTime;
+                        result = fn.apply(thisArgs, context);
+                    } else if (!timer && trailing) {
+                        timer = setTimeout(callOnce, remaining);
+                    }
+                    return result;
+                };
+            }
+            const func1 = throttle(
+                () => {
+                    console.log('节流');
+                },
+                3000,
+                {
+                    leading: false,
+                }
+            );
+            var name = 'World!';
+            (function () {
+                if (typeof name === 'undefined') {
+                    var name = 'Jack'; // 变量提升
+                    console.log('Goodbye ' + name);
+                } else {
+                    console.log('Hello ' + name);
+                }
+            })();
+        </script>
+        <script>
+            window._PFM_TIMING[3] = new Date();
+            console.log('解析完成 => ', window._PFM_TIMING[3] - window._PFM_TIMING[2]);
+        </script>
+    </body>
+</html>

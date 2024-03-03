@@ -20,3 +20,5 @@ class ChildClass extends BaseClass {
     }
 }
 const bar = new ChildClass();
+
+// console.log(bar.#privateProp); // Uncaught SyntaxError: Private field '#privateProp' must be declared in an enclosing class

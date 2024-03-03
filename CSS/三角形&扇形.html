@@ -1,0 +1,66 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>三角形</title>
+        <!-- <link type="text/css" href="./mystyle.css" rel="stylesheet" media="noexist" onload="this.media='all'" /> -->
+        <script>
+            // 异步加载非关键CSS
+            const myCSS = document.createElement('link');
+            myCSS.rel = 'stylesheet';
+            myCSS.href = 'mystyle.css';
+            document.head.appendChild(myCSS);
+            // 插入到header的最后位置
+            // document.head.insertBefore(
+            //     myCSS,
+            //     document.head.childNodes[document.head.childNodes.length - 1].nextSibling
+            // );
+        </script>
+    </head>
+    <body>
+        <style>
+            .triangle {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 43.3px 25px 0 25px;
+                border-color: #00adb5 transparent transparent transparent;
+                margin-top: 300px;
+            }
+            .triangle:hover {
+                border-color: #000000 transparent transparent transparent;
+            }
+            .aniBox {
+                width: 500px;
+                height: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .aniItem {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                animation: aniItem 2s ease-in-out infinite;
+            }
+            @keyframes aniItem {
+                from {
+                    transform: scale(0);
+                }
+                to {
+                    transform: scale(1);
+                }
+            }
+        </style>
+        <div class="sector-container">
+            <span></span>
+            <!-- <span></span> -->
+        </div>
+        <div class="triangle"></div>
+        <input type="text" name="输入框" id="" />
+        <div class="aniBox">
+            <div class="aniItem"></div>
+        </div>
+    </body>
+</html>

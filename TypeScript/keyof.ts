@@ -14,9 +14,9 @@ const anyObj: IObj = {
 /**
  *
  * @param {T} o
- * @param {T[K]} name
+ * @param {K} name
  * @returns
  */
-function get<T extends Record<PropertyKey, any>, K extends keyof T>(o: T, name: T[K]) {
+function get<T, K extends keyof T>(o: T, name: K): T[K] {
     return o[name];
 }

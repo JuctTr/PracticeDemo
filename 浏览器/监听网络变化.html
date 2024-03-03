@@ -1,0 +1,27 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>监听网络变化</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script>
+            var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            var type = connection.effectiveType;
+
+            const container = document.querySelector('#root');
+
+            function updateConnectionStatus() {
+                console.log(connection);
+                console.log('Connection type changed from ' + type + ' to ' + connection.effectiveType);
+                type = connection.effectiveType;
+
+                container.innerHTML = '网络变化了' + type;
+            }
+
+            connection.addEventListener('change', updateConnectionStatus);
+        </script>
+    </body>
+</html>

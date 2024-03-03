@@ -8,7 +8,7 @@ function A() {
     this.name = '123';
 }
 A.prototype.getA = function () {
-    console.log(this);
+    console.log('[getA]', this);
 };
 const a = new A();
 
@@ -16,18 +16,18 @@ const funcA = a.getA;
 funcA(); // undefined
 
 // 例子3，此用例在非严格模式下都是都是打印 undefined ，属于ES6的范围
-// class A1 {
-//     constructor() {
-//         this.name = '123';
-//     }
-//     getA1() {
-//         console.log(this);
-//         // return this.name;
-//     }
-// }
-// const a1 = new A1();
-// const funcA1 = a1.getA1;
-// funcA1();
+class A1 {
+    constructor() {
+        this.name = '123';
+    }
+    getA1() {
+        console.log('[getA1]', this);
+        // return this.name;
+    }
+}
+const a1 = new A1();
+const funcA1 = a1.getA1;
+funcA1();
 
 console.log('================== 变量 =================');
 // person = 'outerName';

@@ -25,6 +25,7 @@
         "@babel/preset-env": "^7.20.2",
         "@vue/cli": "^5.0.8",
         "@vue/compiler-sfc": "^3.2.45",
+        "acorn": "^8.10.0",
         "esbuild": "^0.16.1",
         "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",

@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.sector-container {
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+.sector-container span {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    transform-origin: bottom center;
+}
+.sector-container span:nth-child(1) {
+    transform: translate(-50%, 0) rotate(15deg);
+    border-width: 50px 13.3975px 0 13.3975px;
+    border-color: #00adb5 transparent transparent transparent;
+}
+.sector-container span:nth-child(2) {
+    transform: translate(-50%, 0) rotate(45deg);
+    border-width: 50px 13.3975px 0 13.3975px;
+    border-color: #00adb5 transparent transparent transparent;
+}
