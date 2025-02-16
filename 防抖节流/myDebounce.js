@@ -7,6 +7,16 @@ function isObject(val) {
     return val != null && (type === 'object' || type === 'function');
 }
 
+// 最简单版
+
+function debounce(func, delay) {
+    let timer; // 闭包保存定时器
+    return function (...args) {
+        clearTimeout(timer); // 每次触发前先清空之前的定时器（持续触发则重置）
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
 function debounce(func, wait, options) {
     let timer = null;
     wait = +wait || 0;

@@ -4,12 +4,13 @@ function simpleDebounce(fn, wait, options = { leading: false }) {
 
     let timer = null;
     let result = null;
-    const lastThis = this;
+    let lastThis = this;
     const leading = options.leading;
     let isLeadingCall = false;
 
     return function (...args) {
         if (timer) clearTimeout(timer);
+        lastThis = this;
 
         if (leading && !isLeadingCall) {
             result = fn.apply(lastThis, args);
